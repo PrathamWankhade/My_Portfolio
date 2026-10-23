@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { CurrentYear } from "@/components/ui/current-year";
-import { Mail, Github, MapPin } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
+import { GithubIcon } from "@/components/icons/github";
 import { LinkedInIcon } from "@/components/icons/linkedin";
 import { Logo } from "@/components/logo";
 
@@ -49,7 +50,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 text-body text-ink-secondary hover:text-cobalt transition-colors"
                 >
-                  <Github className="h-4 w-4 text-cobalt" aria-hidden="true" />
+                  <GithubIcon className="h-4 w-4 text-cobalt" aria-hidden="true" />
                   GitHub
                 </a>
               </li>

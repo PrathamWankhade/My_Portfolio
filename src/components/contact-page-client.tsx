@@ -1,6 +1,7 @@
 "use client";
 
-import { Mail, Github, Phone, FileText, ArrowRight } from "lucide-react";
+import { Mail, Phone, FileText, ArrowRight } from "lucide-react";
+import { GithubIcon } from "@/components/icons/github";
 import Link from "next/link";
 import { Card } from "@/components/ui/card";
 import { ContactForm } from "@/components/contact-form";
@@ -40,7 +41,7 @@ const contactChannels: Channel[] = [
     external: false,
   },
   {
-    icon: Github,
+    icon: GithubIcon,
     label: "GitHub",
     value: "github.com/PrathamWankhade",
     href: "https://github.com/PrathamWankhade",
