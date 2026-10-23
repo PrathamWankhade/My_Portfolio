@@ -1,69 +1,251 @@
-import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, ScanFace, ShieldCheck, WifiOff } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Card, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
+import { Chip } from "@/components/ui/chip";
+import { ProjectVisual } from "@/components/project-visual";
+import { Reveal } from "@/components/reveal";
+import { getFeaturedProjects, type Project } from "@/content/projects";
 
-export default function Home() {
+export const metadata = {
+  title: "Home",
+  description:
+    "Pratham Wankhade — Software engineer and technology-focused builder. AI, computer vision, security, and offline-first systems.",
+};
+
+export default function HomePage() {
+  const featured = getFeaturedProjects();
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+    <div className="flex flex-col flex-1">
+      <Hero />
+      <FeaturedWork projects={featured} />
+      <AboutSnippet />
+      <SkillsPreview />
+      <ContactCTA />
     </div>
+  );
+}
+
+function Hero() {
+  return (
+    <section className="relative overflow-hidden pt-28 pb-20 sm:pt-32 sm:pb-24 lg:pt-36">
+      {/* Colorful gradient hero background */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-br from-cobalt-soft via-cream to-lavender-soft" />
+      <div className="absolute inset-0 -z-10 opacity-40" style={{
+        backgroundImage: "radial-gradient(circle at 80% 20%, rgba(239, 68, 68, 0.15), transparent 50%), radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1), transparent 50%)",
+      }} />
+      <div className="relative mx-auto max-w-7xl px-6">
+        <div className="max-w-3xl">
+          <div className="inline-flex items-center gap-2 rounded-full border border-cobalt/30 bg-cobalt-soft px-3 py-1 text-cobalt font-mono text-xs font-medium mb-6 rise rise-1">
+            <span className="relative flex h-2 w-2" aria-hidden="true">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cobalt opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cobalt"></span>
+            </span>
+            Now building
+          </div>
+          <h1 className="editor-text text-display font-semibold leading-[1.02] tracking-tight text-ink mb-6 rise rise-2">
+            Software that works
+            <br />
+            <span className="text-coral italic">when the network doesn&apos;t.</span>
+          </h1>
+          <p className="text-lg text-ink-secondary leading-relaxed mb-10 max-w-2xl rise rise-3">
+            I&apos;m Pratham Wankhade, an AI/ML and full-stack engineer based in
+            Amravati, Maharashtra, India. I build mesh messaging, face-verified
+            attendance, federated intrusion detection, and phishing detection —
+            each documented with architecture, trade-offs, and honest limits.
+          </p>
+          <div className="flex flex-wrap items-center gap-4 rise rise-4">
+            <Button asChild size="lg" variant="color" color="cobalt">
+              <Link href="/projects">
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                Explore the work
+              </Link>
+            </Button>
+            <Button asChild size="lg" variant="outline">
+              <Link href="/about">About me</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function FeaturedWork({ projects }: { projects: Project[] }) {
+  return (
+    <section className="py-16 sm:py-20 border-y border-border/50 bg-surface">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal className="flex items-center justify-between mb-8">
+          <div className="editor-text text-heading font-semibold tracking-tight text-ink">
+            Featured work
+          </div>
+          <Link href="/projects" className="inline-flex items-center gap-1 text-sm font-medium text-cobalt hover:text-cobalt/90 transition-colors">
+            View all projects <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </Reveal>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {projects.map((project, i) => (
+            <Reveal key={project.slug} delay={i * 90} className="h-full">
+              <ProjectCard project={project} />
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  return (
+    <Link
+      href={`/projects/${project.slug}`}
+      className="group block h-full"
+    >
+      <Card variant="raised" className="hover:-translate-y-4 hover:border-cobalt hover:shadow-card overflow-hidden h-full flex flex-col">
+        <div className="relative h-48 overflow-hidden">
+          <ProjectVisual project={project} className="h-full w-full transition-transform duration-700 group-hover:scale-105" />
+          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        </div>
+        <div className="p-6 flex-1">
+          <CardTitle className="mb-2">{project.name}</CardTitle>
+          <CardDescription>{project.tagline}</CardDescription>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {project.stack.slice(0, 4).map((skill) => (
+              <Chip key={skill} variant="outline">{skill}</Chip>
+            ))}
+            {project.stack.length > 4 && (
+              <Chip variant="outline" className="text-muted">
+                +{project.stack.length - 4}
+              </Chip>
+            )}
+          </div>
+        </div>
+        <CardFooter className="bg-transparent border-t-0 pt-0 pb-0">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-mono text-muted">Case study</span>
+            <ArrowRight className="h-3.5 w-3.5 text-ink-secondary group-hover:text-cobalt transition-colors" aria-hidden="true" />
+          </div>
+        </CardFooter>
+      </Card>
+    </Link>
+  );
+}
+
+function AboutSnippet() {
+  return (
+    <section className="py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <Reveal className="relative">
+            <div className="absolute -inset-1 bg-gradient-to-r from-cobalt via-coral to-tangerine rounded-xl blur opacity-30" />
+            <div className="relative rounded-xl border border-border bg-surface p-8 md:p-10 shadow-card">
+              <h2 className="editor-text text-editorial font-semibold tracking-tight text-ink mb-4">
+                The quiet chapter
+                <br />
+                <span className="text-coral italic">after the opening credits</span>
+              </h2>
+              <p className="text-body text-ink-secondary leading-relaxed">
+                I&apos;m Pratham Wankhade — AI/ML and full-stack engineer,
+                builder, and occasional writer. I document systems with the same
+                care I use to build them: architecture, trade-offs, and honest
+                limits.
+              </p>
+            </div>
+          </Reveal>
+          <Reveal delay={120} className="space-y-6">
+            <h3 className="editor-text text-heading font-semibold tracking-tight text-ink">
+              What I build
+            </h3>
+            <div className="space-y-4">
+              <div className="flex items-start gap-4">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-cobalt-soft text-cobalt shrink-0">
+                  <ScanFace className="h-4 w-4" aria-hidden="true" />
+                </div>
+                <div>
+                  <h4 className="font-medium text-ink">AI &amp; computer vision</h4>
+                  <p className="text-sm text-ink-secondary">
+                    Face detection, recognition, and the ethics of automated
+                    identification.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-coral-soft text-coral shrink-0">
+                  <ShieldCheck className="h-4 w-4" aria-hidden="true" />
+                </div>
+                <div>
+                  <h4 className="font-medium text-ink">Security &amp; privacy</h4>
+                  <p className="text-sm text-ink-secondary">
+                    Federated learning, encryption, threat modeling.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-soft text-emerald shrink-0">
+                  <WifiOff className="h-4 w-4" aria-hidden="true" />
+                </div>
+                <div>
+                  <h4 className="font-medium text-ink">Offline-first systems</h4>
+                  <p className="text-sm text-ink-secondary">
+                    Apps that work without a network and sync on reconnect.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SkillsPreview() {
+  const allSkills = [
+    "Python", "TypeScript", "Dart", "Flutter", "React",
+    "Next.js", "FastAPI", "TensorFlow", "PyTorch", "Docker",
+  ];
+  return (
+    <section className="py-16 sm:py-20 bg-cobalt-soft border-y border-cobalt/20">
+      <div className="mx-auto max-w-7xl px-6">
+        <Reveal className="flex items-center justify-between mb-8">
+          <div className="editor-text text-heading font-semibold tracking-tight text-ink">
+            Technical capabilities
+          </div>
+          <Link href="/skills" className="inline-flex items-center gap-1 text-sm font-medium text-cobalt hover:text-cobalt/90 transition-colors">
+            View all skills <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+        </Reveal>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+          {allSkills.map((skill, i) => (
+            <Reveal key={skill} delay={i * 45}>
+              <Chip variant="color" color="cobalt" size="md" className="w-full justify-center">
+                {skill}
+              </Chip>
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ContactCTA() {
+  return (
+    <section className="py-16 sm:py-20">
+      <div className="mx-auto max-w-3xl px-6 text-center">
+        <Reveal className="rounded-2xl border border-border bg-gradient-to-b from-coral-soft via-tangerine-soft to-lavender-soft p-10 md:p-14 shadow-card">
+          <h2 className="editor-text text-editorial font-semibold tracking-tight text-ink mb-4">
+            Working on something?
+          </h2>
+          <p className="text-body text-ink-secondary leading-relaxed mb-8 max-w-lg mx-auto">
+            Recruiting, collaboration, or a question about any of the projects —
+            write directly. I reply thoughtfully when the question is specific.
+          </p>
+          <Button asChild size="lg" variant="color" color="coral">
+            <Link href="/contact">Get in touch</Link>
+          </Button>
+        </Reveal>
+      </div>
+    </section>
   );
 }

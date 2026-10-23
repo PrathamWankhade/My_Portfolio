@@ -1,26 +1,261 @@
 @import "tailwindcss";
 
+/* ------------------------------------------------------------------ */
+/* THE DREAMING ENGINEER — colorful editorial design tokens           */
+/* Cobalt, coral, tangerine, lavender, emerald, warm cream palette    */
+/* ------------------------------------------------------------------ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Backgrounds */
+  --background: #fdfaf5;
+  --foreground: #0f172a;
+
+  /* Primary brand colors */
+  --cobalt: #1d4ed8;
+  --cobalt-soft: #eff6ff;
+  --coral: #ef4444;
+  --coral-soft: #fdecea;
+  --tangerine: #fb923c;
+  --tangerine-soft: #fff4e0;
+  --lavender: #a78bfa;
+  --lavender-soft: #f3e8ff;
+  --emerald: #10b981;
+  --emerald-soft: #dcfce7;
+  --cream: #fdfaf5;
+
+  /* Surface & text */
+  --surface: #ffffff;
+  --surface-raised: #f7f5f0;
+  --border: #e7e2d9;
+  --ink: #0f172a;
+  --ink-secondary: #475569;
+  --muted: #94a3b8;
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, #1d4ed8 0%, #7c3aed 55%, #ef4444 100%);
+  --gradient-surface: linear-gradient(180deg, #ffffff 0%, #fdfaf5 100%);
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 18px;
+  --radius-xl: 28px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-soft: 0 1px 3px 0 rgb(0 0 0 / 0.05), 0 1px 2px -1px rgb(0 0 0 / 0.03);
+  --shadow-card: 0 10px 30px -10px rgb(239 68 68 / 0.08), 0 4px 12px -4px rgb(0 0 0 / 0.04);
+  --shadow-glow: 0 0 40px -10px rgb(59 130 246 / 0.35);
+
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-cobalt: var(--cobalt);
+  --color-cobalt-soft: var(--cobalt-soft);
+  --color-coral: var(--coral);
+  --color-coral-soft: var(--coral-soft);
+  --color-tangerine: var(--tangerine);
+  --color-tangerine-soft: var(--tangerine-soft);
+  --color-lavender: var(--lavender);
+  --color-lavender-soft: var(--lavender-soft);
+  --color-emerald: var(--emerald);
+  --color-emerald-soft: var(--emerald-soft);
+  --color-cream: var(--cream);
+
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-ink: var(--ink);
+  --color-ink-secondary: var(--ink-secondary);
+  --color-muted: var(--muted);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-full: var(--radius-full);
+
+  --font-serif: var(--font-cormorant), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, "Cascadia Mono", monospace;
+
+  --text-display: clamp(3.5rem, 7vw + 1rem, 7rem);
+  --text-editorial: clamp(2rem, 4vw + 1rem, 3.5rem);
+  --text-heading: clamp(1.5rem, 2.5vw + 0.5rem, 2.5rem);
+  --text-body: clamp(1rem, 1vw + 0.5rem, 1.125rem);
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+  /* Warm cream base with a subtle paper grain baked in (editorial texture). */
+  background-color: var(--background);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-attachment: fixed;
+}
+
+/* Branded text selection */
+::selection {
+  background: rgb(29 78 216 / 0.16);
+  color: var(--ink);
+}
+
+/* Consistent, visible focus ring for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--cobalt);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Editorial utilities */
+@utility editor-text {
+  font-family: var(--font-serif);
+}
+
+@utility drop-cap {
+  &::first-letter {
+    float: left;
+    font-family: var(--font-serif);
+    font-size: clamp(2.75rem, 6vw, 4rem);
+    line-height: 0.85;
+    font-weight: 600;
+    padding-right: 0.5rem;
+    margin-top: 0.05rem;
+    color: var(--cobalt);
+  }
+}
+
+@utility section-head {
+  font-family: var(--font-serif);
+  font-size: clamp(1.25rem, 2vw + 0.5rem, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+@utility fig-style {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.875rem, 1vw + 0.5rem, 1rem);
+  color: var(--ink-secondary);
+}
+
+@utility card-surface {
+  background: var(--gradient-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+}
+
+@utility hover-card {
+  transition:
+    transform 300ms ease,
+    border-color 300ms ease,
+    box-shadow 300ms ease;
+}
+
+/* ------------------------------------------------------------------ */
+/* Motion — restrained, purposeful, opt-in                             */
+/* ------------------------------------------------------------------ */
+
+/* Reveal-on-scroll: starts hidden, the <Reveal> observer adds
+   .is-visible when the block enters the viewport. Neutralised entirely
+   for reduced-motion and for visitors without JavaScript. */
+.reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity 650ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 650ms cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Hero entrance: a single quiet rise on first paint (CSS-only). */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise {
+  animation: rise-in 750ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rise-1 {
+  animation-delay: 60ms;
+}
+
+.rise-2 {
+  animation-delay: 170ms;
+}
+
+.rise-3 {
+  animation-delay: 280ms;
+}
+
+.rise-4 {
+  animation-delay: 390ms;
+}
+
+/* Respect the visitor's motion preferences everywhere */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    will-change: auto;
+  }
+
+  .rise,
+  .rise-1,
+  .rise-2,
+  .rise-3,
+  .rise-4 {
+    animation: none !important;
+  }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-full);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-secondary);
 }
