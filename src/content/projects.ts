@@ -9,6 +9,7 @@ export type Project = {
   name: string;
   tagline: string;
   color: "cobalt" | "coral" | "tangerine" | "lavender" | "emerald";
+  tags: string[];
   description: string;
   problem: string;
   objectives: string[];
@@ -36,6 +37,7 @@ export const projects: Project[] = [
     name: "OneBit",
     tagline: "Decentralized mesh messaging over Bluetooth — no servers, no accounts",
     color: "cobalt",
+    tags: ["Offline & mobile", "Cybersecurity"],
     description:
       "A peer-to-peer messenger where nearby devices talk directly over Bluetooth Low Energy. Every device is a node, router, and secure endpoint — messages hop between devices through a custom mesh protocol, and your data never touches a server.",
     problem:
@@ -92,6 +94,7 @@ export const projects: Project[] = [
     name: "FaceSnap",
     tagline: "Face-verified attendance — only verified matches become records",
     color: "coral",
+    tags: ["AI/ML", "Computer vision"],
     description:
       "An attendance system where a face in frame means nothing until the backend matches it against an enrolled embedding and it passes liveness checks. Unknown faces go to a review queue — never into the register.",
     problem:
@@ -148,6 +151,7 @@ export const projects: Project[] = [
     name: "AIPFL-IDS",
     tagline: "Simulated federated learning for IoT intrusion detection",
     color: "emerald",
+    tags: ["AI/ML", "Cybersecurity"],
     description:
       "A research prototype applying deep learning and simulated federated learning to IoT network-traffic intrusion detection across two benchmark datasets — with its limits documented as carefully as its results.",
     problem:
@@ -196,6 +200,7 @@ export const projects: Project[] = [
     name: "Phishing Detection",
     tagline: "Traceable phishing verdicts with honest, documented scores",
     color: "tangerine",
+    tags: ["AI/ML", "Cybersecurity"],
     description:
       "An email phishing detector built so every verdict is traceable to evidence and every score means exactly what the interface says it means — the model's probability and the policy risk score stay separate fields.",
     problem:

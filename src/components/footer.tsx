@@ -21,7 +21,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-ink mb-4">Connect</h3>
+            <h2 className="font-semibold text-ink mb-4">Connect</h2>
             <ul className="space-y-3">
               <li className="flex items-center gap-3 text-body text-ink-secondary">
                 <Mail className="h-4 w-4 shrink-0 text-cobalt" aria-hidden="true" />
@@ -40,7 +40,7 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="font-semibold text-ink mb-4">Elsewhere</h3>
+            <h2 className="font-semibold text-ink mb-4">Elsewhere</h2>
             <ul className="space-y-3">
               <li>
                 <a

@@ -60,11 +60,13 @@ export function CardHeader({ className, ...props }: CardHeaderProps) {
 
 interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
   className?: string;
+  /** Heading level — pick the one that keeps the page's outline in order. */
+  as?: "h1" | "h2" | "h3" | "h4";
 }
 
-export function CardTitle({ className, ...props }: CardTitleProps) {
+export function CardTitle({ className, as: Tag = "h3", ...props }: CardTitleProps) {
   return (
-    <h3
+    <Tag
       {...props}
       className={cn(
         "font-serif text-heading text-ink tracking-tight",

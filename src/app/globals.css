@@ -218,6 +218,18 @@ a {
   animation-delay: 390ms;
 }
 
+/* Gallery cards re-animate when the category filter changes. */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Respect the visitor's motion preferences everywhere */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -258,4 +270,51 @@ a {
 }
 ::-webkit-scrollbar-thumb:hover {
   background: var(--ink-secondary);
+}
+
+/* ------------------------------------------------------------------ */
+/* Print / Save-as-PDF — used by the résumé page                       */
+/* ------------------------------------------------------------------ */
+@media print {
+  nav,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* Strip page chrome; keep only the content */
+  main {
+    padding: 0 !important;
+  }
+
+  .resume-sheet {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    background: transparent !important;
+    max-width: none !important;
+  }
+
+  .resume-h2 {
+    border-bottom-color: #cbd5e1 !important;
+    color: #1d4ed8 !important;
+  }
+
+  /* Keep entries whole across page breaks */
+  .resume-item,
+  figure,
+  table {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  a[href]::after {
+    content: "";
+  }
 }

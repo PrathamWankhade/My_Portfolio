@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { Reveal } from "@/components/reveal";
+import { ProjectIllustration } from "@/components/project-illustration";
 
 export async function generateMetadata({
   params,
@@ -113,21 +114,71 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16 border-y border-border/50">
+      {/* At a glance — the four facts a visitor needs in seconds */}
+      <section className="bg-surface border-y border-border/50">
+        <div className="mx-auto max-w-4xl px-6 py-9 sm:py-11">
+          <Reveal>
+            <h2 className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-5 block">
+              At a glance
+            </h2>
+            <dl className="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-6">
+              <div>
+                <dt className="text-[11px] font-mono uppercase tracking-widest text-muted mb-1.5">Status</dt>
+                <dd className="text-sm font-medium text-ink leading-snug">{project.status}</dd>
+              </div>
+              <div>
+                <dt className="text-[11px] font-mono uppercase tracking-widest text-muted mb-1.5">Category</dt>
+                <dd className="text-sm font-medium text-ink leading-snug">{project.tags.join(" · ")}</dd>
+              </div>
+              <div>
+                <dt className="text-[11px] font-mono uppercase tracking-widest text-muted mb-1.5">Headline result</dt>
+                <dd className="text-sm font-medium text-ink leading-snug">
+                  {project.metrics?.[0]?.value ?? "—"}
+                  {project.metrics?.[0]?.label && (
+                    <span className="block text-xs font-normal font-mono text-muted mt-0.5">
+                      {project.metrics[0].label.toLowerCase()}
+                    </span>
+                  )}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-[11px] font-mono uppercase tracking-widest text-muted mb-1.5">Built with</dt>
+                <dd className="text-sm font-medium text-ink leading-snug">
+                  {project.stack.slice(0, 3).join(", ")}
+                  {project.stack.length > 3 ? ` +${project.stack.length - 3}` : ""}
+                </dd>
+              </div>
+            </dl>
+
+            {/* Visual explanation up top — understand it without reading paragraphs */}
+            <figure className="mt-9">
+              <div className="rounded-xl border border-border overflow-hidden shadow-card">
+                <ProjectIllustration project={project} className="aspect-[420/260] w-full" />
+              </div>
+              <figcaption className="mt-3 text-xs font-mono text-muted leading-relaxed">
+                {project.name} — architecture overview, drawn from the documented
+                system. A diagram, not a screenshot.
+              </figcaption>
+            </figure>
+          </Reveal>
+        </div>
+      </section>
+
+      <section className="py-12 sm:py-16 border-b border-border/50">
         <div className="mx-auto max-w-4xl px-6">
           <Reveal className="mb-10">
-            <div className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
+            <h2 className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
               Problem
-            </div>
+            </h2>
             <p className="border-l-[3px] border-coral pl-5 sm:pl-7 text-lg text-ink-secondary leading-relaxed">
               {project.problem}
             </p>
           </Reveal>
 
           <Reveal className="mb-10" delay={60}>
-            <div className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
+            <h2 className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
               Objectives
-            </div>
+            </h2>
             <ul className="space-y-3">
               {project.objectives.map((obj, i) => (
                 <li key={i} className="flex gap-3">
@@ -141,9 +192,9 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
           </Reveal>
 
           <Reveal className="mb-10" delay={60}>
-            <div className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
+            <h2 className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
               Technologies
-            </div>
+            </h2>
             <div className="flex flex-wrap gap-2">
               {project.stack.map((skill) => (
                 <Chip key={skill} variant="outline">{skill}</Chip>
@@ -152,9 +203,9 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
           </Reveal>
 
           <Reveal delay={60}>
-            <div className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
+            <h2 className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
               Metrics
-            </div>
+            </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {(project.metrics ?? []).map((m) => (
                 <Card key={m.label} variant="bordered" padded={false} className="p-5">
@@ -173,9 +224,9 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-4xl px-6 space-y-10">
           <Reveal>
-            <div className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
+            <h2 className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
               Architecture
-            </div>
+            </h2>
             <Card variant="bordered" padded={false} className="p-6 md:p-8">
               <p className="text-body text-ink-secondary leading-relaxed">
                 {project.architecture}
@@ -184,9 +235,9 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
           </Reveal>
 
           <Reveal delay={60}>
-            <div className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
+            <h2 className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
               Implementation
-            </div>
+            </h2>
             <Card variant="bordered" padded={false} className="p-6 md:p-8">
               <p className="text-body text-ink-secondary leading-relaxed">
                 {project.implementation}
@@ -195,9 +246,9 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
           </Reveal>
 
           <Reveal delay={60}>
-            <div className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
+            <h2 className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
               Challenges
-            </div>
+            </h2>
             <ul className="space-y-3">
               {project.challenges.map((challenge, i) => (
                 <li key={i} className="flex gap-3 text-body text-ink-secondary leading-relaxed">
@@ -211,9 +262,9 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
           </Reveal>
 
           <Reveal delay={60}>
-            <div className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
+            <h2 className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
               Outcomes
-            </div>
+            </h2>
             <ul className="space-y-3">
               {project.outcomes.map((outcome, i) => (
                 <li key={i} className="flex gap-3 text-body text-ink-secondary leading-relaxed">

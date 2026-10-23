@@ -3,7 +3,7 @@ import { ArrowRight, ScanFace, ShieldCheck, WifiOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
-import { ProjectVisual } from "@/components/project-visual";
+import { ProjectIllustration } from "@/components/project-illustration";
 import { Reveal } from "@/components/reveal";
 import { getFeaturedProjects, type Project } from "@/content/projects";
 
@@ -26,44 +26,116 @@ export default function HomePage() {
   );
 }
 
+const domains = [
+  {
+    icon: WifiOff,
+    title: "Offline-first systems",
+    sub: "OneBit · BLE mesh messaging",
+    color: "#1d4ed8",
+    soft: "#eff6ff",
+    href: "/projects/onebit",
+  },
+  {
+    icon: ScanFace,
+    title: "Computer vision",
+    sub: "FaceSnap · face verification",
+    color: "#ef4444",
+    soft: "#fdecea",
+    href: "/projects/faceSnap",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Security & privacy",
+    sub: "AIPFL-IDS · Phishing detection",
+    color: "#10b981",
+    soft: "#dcfce7",
+    href: "/projects",
+  },
+];
+
 function Hero() {
   return (
-    <section className="relative overflow-hidden pt-28 pb-20 sm:pt-32 sm:pb-24 lg:pt-36">
+    <section className="relative overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pt-36">
       {/* Colorful gradient hero background */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-cobalt-soft via-cream to-lavender-soft" />
-      <div className="absolute inset-0 -z-10 opacity-40" style={{
-        backgroundImage: "radial-gradient(circle at 80% 20%, rgba(239, 68, 68, 0.15), transparent 50%), radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.1), transparent 50%)",
-      }} />
       <div className="relative mx-auto max-w-7xl px-6">
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 rounded-full border border-cobalt/30 bg-cobalt-soft px-3 py-1 text-cobalt font-mono text-xs font-medium mb-6 rise rise-1">
-            <span className="relative flex h-2 w-2" aria-hidden="true">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cobalt opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-cobalt"></span>
-            </span>
-            Now building
+        <div className="grid grid-cols-1 lg:grid-cols-[1.06fr_0.94fr] gap-12 lg:gap-16 items-center">
+          {/* Left: statement + primary actions */}
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-cobalt/30 bg-cobalt-soft px-3 py-1 text-cobalt font-mono text-xs font-medium mb-6 rise rise-1">
+              <span className="relative flex h-2 w-2" aria-hidden="true">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cobalt opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-cobalt"></span>
+              </span>
+              Now building
+            </div>
+            <h1 className="editor-text text-[clamp(3.25rem,7vw+0.5rem,4.75rem)] font-semibold leading-[1.04] tracking-tight text-ink mb-6 rise rise-2">
+              Software that works
+              <br />
+              <span className="text-coral italic">when the network doesn&apos;t.</span>
+            </h1>
+            <p className="text-lg text-ink-secondary leading-relaxed mb-9 max-w-xl rise rise-3">
+              I&apos;m Pratham Wankhade, an AI/ML and full-stack engineer based in
+              Amravati, Maharashtra, India. I build mesh messaging, face-verified
+              attendance, federated intrusion detection, and phishing detection —
+              each documented with architecture, trade-offs, and honest limits.
+            </p>
+            <div className="flex flex-wrap items-center gap-4 rise rise-4">
+              <Button asChild size="lg" variant="color" color="cobalt">
+                <Link href="/projects">
+                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                  Explore the work
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link href="/resume">Résumé</Link>
+              </Button>
+            </div>
           </div>
-          <h1 className="editor-text text-display font-semibold leading-[1.02] tracking-tight text-ink mb-6 rise rise-2">
-            Software that works
-            <br />
-            <span className="text-coral italic">when the network doesn&apos;t.</span>
-          </h1>
-          <p className="text-lg text-ink-secondary leading-relaxed mb-10 max-w-2xl rise rise-3">
-            I&apos;m Pratham Wankhade, an AI/ML and full-stack engineer based in
-            Amravati, Maharashtra, India. I build mesh messaging, face-verified
-            attendance, federated intrusion detection, and phishing detection —
-            each documented with architecture, trade-offs, and honest limits.
-          </p>
-          <div className="flex flex-wrap items-center gap-4 rise rise-4">
-            <Button asChild size="lg" variant="color" color="cobalt">
-              <Link href="/projects">
-                <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                Explore the work
-              </Link>
-            </Button>
-            <Button asChild size="lg" variant="outline">
-              <Link href="/about">About me</Link>
-            </Button>
+
+          {/* Right: a visual index of the three domains the work spans */}
+          <div className="rise rise-3">
+            <div className="rounded-2xl border border-border bg-surface/90 backdrop-blur-sm shadow-card p-5 sm:p-6">
+              <div className="flex items-center justify-between mb-5">
+                <span className="font-mono text-[11px] uppercase tracking-widest text-muted">
+                  What I build
+                </span>
+                <span className="flex items-center gap-1.5 font-mono text-[11px] text-emerald">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald" aria-hidden="true" />
+                  4 case studies
+                </span>
+              </div>
+              <ul className="space-y-3">
+                {domains.map((d) => (
+                  <li key={d.title}>
+                    <Link
+                      href={d.href}
+                      className="group flex items-center gap-4 rounded-xl border border-border/70 bg-cream/70 px-4 py-3.5 transition-colors hover:border-cobalt/40 hover:bg-cobalt-soft/40"
+                    >
+                      <span
+                        className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+                        style={{ backgroundColor: d.soft, color: d.color }}
+                        aria-hidden="true"
+                      >
+                        <d.icon className="h-5 w-5" />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block font-medium text-ink text-sm leading-snug">
+                          {d.title}
+                        </span>
+                        <span className="block font-mono text-[11px] text-muted truncate">
+                          {d.sub}
+                        </span>
+                      </span>
+                      <ArrowRight
+                        className="h-4 w-4 shrink-0 text-muted transition-transform group-hover:translate-x-0.5 group-hover:text-cobalt"
+                        aria-hidden="true"
+                      />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
@@ -103,7 +175,7 @@ function ProjectCard({ project }: { project: Project }) {
     >
       <Card variant="raised" className="hover:-translate-y-4 hover:border-cobalt hover:shadow-card overflow-hidden h-full flex flex-col">
         <div className="relative h-48 overflow-hidden">
-          <ProjectVisual project={project} className="h-full w-full transition-transform duration-700 group-hover:scale-105" />
+          <ProjectIllustration project={project} className="h-full w-full transition-transform duration-700 group-hover:scale-105" />
           <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </div>
         <div className="p-6 flex-1">

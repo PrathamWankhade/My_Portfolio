@@ -1,11 +1,13 @@
+import Link from "next/link";
 import { skillGroups } from "@/content/experience";
+import { getProject } from "@/content/projects";
 import { Card, CardTitle } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
 import { Reveal } from "@/components/reveal";
 
 export const metadata = {
   title: "Skills",
-  description: "Programming languages, frameworks, tools, and engineering capabilities.",
+  description: "Programming languages, frameworks, tools, and engineering capabilities — linked to the projects where each was used.",
 };
 
 const levelColors: Record<"working" | "proficient" | "expert", "cobalt" | "coral" | "emerald"> = {
@@ -32,8 +34,9 @@ export default function SkillsPage() {
             Technical skills
           </h1>
           <p className="text-lg text-ink-secondary leading-relaxed max-w-lg mx-auto">
-            Languages, frameworks, tools, and engineering capabilities I work
-            with — grouped by depth of experience.
+            Grouped by practical use — and each group links to the projects
+            where those skills were actually applied, so the depth is
+            verifiable.
           </p>
         </div>
       </section>
@@ -48,7 +51,7 @@ export default function SkillsPage() {
                   className="hover-card p-6 md:p-8 h-full"
                 >
                   <div className="flex items-center justify-between mb-5">
-                    <CardTitle className="mb-0">{group.name}</CardTitle>
+                    <CardTitle as="h2" className="mb-0">{group.name}</CardTitle>
                     <Chip
                       variant="color"
                       color={levelColors[group.level as keyof typeof levelColors]}
@@ -64,6 +67,36 @@ export default function SkillsPage() {
                       </Chip>
                     ))}
                   </div>
+
+                  {/* Evidence: where these skills were applied */}
+                  {group.usedIn && group.usedIn.length > 0 && (
+                    <div className="mt-5 pt-4 border-t border-border/60">
+                      <span className="text-[11px] font-mono uppercase tracking-widest text-muted block mb-2.5">
+                        Used in
+                      </span>
+                      <div className="flex flex-wrap gap-2">
+                        {group.usedIn.map((slug) => {
+                          const project = getProject(slug);
+                          if (!project) return null;
+                          return (
+                            <Link
+                              key={slug}
+                              href={`/projects/${slug}`}
+                              className="group inline-flex items-center gap-1 rounded-full border border-border bg-surface px-3 py-1.5 text-xs font-medium text-ink-secondary transition-colors hover:border-cobalt hover:text-cobalt min-h-[32px]"
+                            >
+                              {project.name}
+                              <span
+                                className="text-muted transition-transform group-hover:translate-x-0.5"
+                                aria-hidden="true"
+                              >
+                                →
+                              </span>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
                 </Card>
               </Reveal>
             ))}

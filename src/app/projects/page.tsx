@@ -1,9 +1,5 @@
-import Link from "next/link";
-import { projects, type Project } from "@/content/projects";
-import { Card, CardDescription, CardTitle } from "@/components/ui/card";
-import { Chip } from "@/components/ui/chip";
-import { ProjectVisual } from "@/components/project-visual";
-import { Reveal } from "@/components/reveal";
+import { projects } from "@/content/projects";
+import { ProjectsGallery } from "@/components/projects-gallery";
 
 export const metadata = {
   title: "Projects",
@@ -34,44 +30,9 @@ export default function ProjectsPage() {
 
       <section className="pb-16 sm:pb-20">
         <div className="mx-auto max-w-7xl px-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8">
-            {projects.map((project, i) => (
-              <Reveal key={project.slug} delay={(i % 2) * 90} className="h-full">
-                <ProjectCard project={project} />
-              </Reveal>
-            ))}
-          </div>
+          <ProjectsGallery projects={projects} />
         </div>
       </section>
     </div>
-  );
-}
-
-function ProjectCard({ project }: { project: Project }) {
-  return (
-    <Link
-      href={`/projects/${project.slug}`}
-      className="group block h-full"
-    >
-      <Card variant="bordered" className="hover:-translate-y-4 hover:border-cobalt hover:shadow-card overflow-hidden flex flex-col h-full">
-        <div className="relative h-48 shrink-0 overflow-hidden">
-          <ProjectVisual project={project} className="h-full w-full transition-transform duration-700 group-hover:scale-105" />
-        </div>
-        <div className="p-5 flex-1 flex flex-col">
-          <CardTitle className="mb-2">{project.name}</CardTitle>
-          <CardDescription className="mb-4 flex-1">{project.tagline}</CardDescription>
-          <div className="mt-auto flex flex-wrap gap-2">
-            {project.stack.slice(0, 5).map((skill) => (
-              <Chip key={skill} variant="outline" size="sm">{skill}</Chip>
-            ))}
-          </div>
-          <div className="mt-4 flex items-center gap-2 text-xs font-mono text-muted">
-            <span>{project.status}</span>
-            <span aria-hidden="true">·</span>
-            <span className="text-cobalt group-hover:text-cobalt/90">Case study →</span>
-          </div>
-        </div>
-      </Card>
-    </Link>
   );
 }

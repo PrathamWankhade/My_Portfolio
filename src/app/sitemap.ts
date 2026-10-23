@@ -1,9 +1,14 @@
 import { MetadataRoute } from "next";
 import { projects } from "@/content/projects";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://prathamwankhade.dev";
+const base = "https://portfolio.prathamwankhade.dev";
 
+/**
+ * No `lastModified` is emitted: there is no tracked content-update timestamp,
+ * and stamping every entry with request time would signal a false "just
+ * updated" to crawlers. Add a real per-page date when content changes.
+ */
+export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
     "/about",
@@ -12,16 +17,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/experience",
     "/achievements",
     "/contact",
+    "/resume",
   ].map((route) => ({
     url: `${base}${route}`,
-    lastModified: new Date().toISOString(),
     changeFrequency: "monthly" as const,
     priority: route === "" ? 1 : 0.8,
   }));
 
   const projectRoutes = projects.map((project) => ({
     url: `${base}/projects/${project.slug}`,
-    lastModified: new Date().toISOString(),
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));

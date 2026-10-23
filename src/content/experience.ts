@@ -116,6 +116,8 @@ export type SkillGroup = {
   name: string;
   skills: string[];
   level: "working" | "proficient" | "expert";
+  /** Project slugs where this group's skills were actually applied. */
+  usedIn?: string[];
 };
 
 export const skillGroups: SkillGroup[] = [
@@ -123,9 +125,10 @@ export const skillGroups: SkillGroup[] = [
     name: "Languages",
     skills: ["Python", "TypeScript", "JavaScript", "Dart", "SQL", "C++", "Bash"],
     level: "proficient",
+    usedIn: ["onebit", "faceSnap", "aipfl-ids", "phishing-detection"],
   },
   {
-    name: "AI & Machine Learning",
+    name: "AI & computer vision",
     skills: [
       "TensorFlow",
       "PyTorch",
@@ -137,24 +140,37 @@ export const skillGroups: SkillGroup[] = [
       "Computer Vision",
     ],
     level: "proficient",
+    usedIn: ["faceSnap", "aipfl-ids", "phishing-detection"],
   },
   {
-    name: "Frameworks & Backend",
-    skills: [
-      "React",
-      "Next.js",
-      "Flutter",
-      "FastAPI",
-      "Flask",
-      "Node.js",
-      "Tailwind CSS",
-    ],
+    name: "Frontend",
+    skills: ["React", "Next.js", "Tailwind CSS", "TypeScript"],
     level: "proficient",
+    usedIn: ["faceSnap", "phishing-detection", "aipfl-ids"],
   },
   {
-    name: "Tools & Platforms",
-    skills: ["Linux", "Git", "Docker", "AWS", "Firebase", "Qdrant", "SQLite"],
+    name: "Mobile",
+    skills: ["Flutter", "Dart", "Riverpod", "Material 3"],
+    level: "proficient",
+    usedIn: ["onebit"],
+  },
+  {
+    name: "Backend & APIs",
+    skills: ["FastAPI", "Flask", "Node.js"],
+    level: "proficient",
+    usedIn: ["faceSnap", "phishing-detection", "aipfl-ids"],
+  },
+  {
+    name: "Databases",
+    skills: ["SQLite", "Qdrant", "Firebase", "Drift (SQLite)"],
     level: "working",
+    usedIn: ["onebit", "faceSnap", "phishing-detection"],
+  },
+  {
+    name: "Infrastructure & tools",
+    skills: ["Docker", "Linux", "Git", "AWS"],
+    level: "working",
+    usedIn: ["aipfl-ids", "phishing-detection"],
   },
 ];
 

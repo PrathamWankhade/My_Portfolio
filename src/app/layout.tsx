@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   description:
     "AI/ML & full-stack engineer. Mesh messaging, computer vision, security, and offline-first systems. Colorful editorial portfolio of original, verifiable work.",
-  metadataBase: new URL("https://prathamwankhade.dev"),
+  metadataBase: new URL("https://portfolio.prathamwankhade.dev"),
   alternates: {
     canonical: "/",
   },
