@@ -51,6 +51,7 @@ type TimelineEntry = {
   period?: string;
   organization?: string;
   location?: string;
+  detail?: string;
   description: string;
   highlights?: string[];
 };
@@ -89,6 +90,9 @@ function TimelineSection({ title, color, entries }: TimelineSectionProps) {
                   {entry.organization && entry.location ? " · " : ""}
                   {entry.location}
                 </p>
+              )}
+              {entry.detail && (
+                <p className="text-xs font-medium text-ink mt-0.5">{entry.detail}</p>
               )}
               <p className="mt-2.5 text-sm text-ink-secondary leading-relaxed max-w-[65ch]">
                 {entry.description}

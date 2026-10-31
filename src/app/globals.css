@@ -275,11 +275,27 @@ a {
 /* ------------------------------------------------------------------ */
 /* Print / Save-as-PDF — used by the résumé page                       */
 /* ------------------------------------------------------------------ */
+
+/* Real list markers (text painting, so they print without backgrounds) */
+.resume-ul {
+  list-style: disc;
+  padding-left: 1.15rem;
+}
+
+.resume-ul > li::marker {
+  color: var(--cobalt);
+}
+
 @media print {
   nav,
   footer,
   .no-print {
     display: none !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 12mm;
   }
 
   html,
@@ -299,11 +315,27 @@ a {
     padding: 0 !important;
     background: transparent !important;
     max-width: none !important;
+    /* Keep the cobalt/coral accents in the PDF */
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .resume-h2 {
     border-bottom-color: #cbd5e1 !important;
     color: #1d4ed8 !important;
+    /* never orphan a section heading at the bottom of a page */
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .resume-sheet h3 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* Coral (#ef4444) is too light for white paper — darken in print only */
+  .resume-role {
+    color: #b91c1c !important;
   }
 
   /* Keep entries whole across page breaks */

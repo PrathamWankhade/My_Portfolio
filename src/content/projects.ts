@@ -28,6 +28,8 @@ export type Project = {
   architecture?: string;
   implementation: string;
   outcomes: string[];
+  /** One-line résumé rendering: stack + strongest verified fact (with its condition). */
+  resumeLine?: string;
   featured: boolean;
 };
 
@@ -83,6 +85,8 @@ export const projects: Project[] = [
       "Three reactive layers: Drift (SQLite) as the source of truth, Riverpod providers exposing it to the UI, and a BLE protocol layer handling packet codec, mesh routing, and reliable transfer. Every device can optionally relay for other peers.",
     implementation:
       "Built in Flutter/Dart with a custom BLE mesh routing protocol. Messages are encrypted with AES-256-GCM before leaving the device; identity is an Ed25519 key pair with X25519 derived for session agreement. CI runs the full test suite and fails the build on a single flutter analyze issue.",
+    resumeLine:
+      "Decentralized BLE messenger (Flutter/Dart): multi-hop mesh routing, AES-256-GCM via X25519, zero servers",
     outcomes: [
       "Two devices can converse with no internet, no server, and no account",
       "Messages queue for out-of-range peers and send themselves once the mesh finds a path",
@@ -140,6 +144,8 @@ export const projects: Project[] = [
       "Next.js 15 + Firebase on the frontend (Google sign-in, Firestore profiles, storage); a FastAPI service does recognition — InsightFace ArcFace embeddings cached in Qdrant, cosine-distance matching, liveness scoring — and writes one canonical attendance schema.",
     implementation:
       "Enrollment captures a guided face sample and syncs the embedding to Qdrant. Live scans run liveness analysis before embedding; only verified matches within threshold become attendance events, once per session. Every backend route verifies Firebase ID tokens, and a chatbot is proxied server-side so no API key reaches the browser.",
+    resumeLine:
+      "Face-verified attendance (Next.js + FastAPI): ArcFace embeddings in Qdrant with liveness checks",
     outcomes: [
       "Only verified, live matches become attendance records — unknowns wait in a review queue",
       "Four capture modes — 1:1, doorway batch, group photo, CCTV/Pi streams — write one canonical schema",
@@ -189,6 +195,8 @@ export const projects: Project[] = [
       "A TensorFlow DNN (512→256→128→64→10) with FedAvg across 10 simulated clients; per-dataset scalers, encoders, and models; a Flask API selects the model per request; a Next.js frontend proxies /api/* and shows dual-dataset metrics.",
     implementation:
       "Client partitions are simulated in one process — the repo states this explicitly: the project does not yet demonstrate privacy guarantees for independent clients, secure aggregation, or differential privacy. Training streams 200K-row batches and clips extreme features by percentile.",
+    resumeLine:
+      "Federated IDS prototype (TensorFlow): FedAvg across 10 simulated clients, two IoT benchmark datasets",
     outcomes: [
       "Two datasets train and serve through one API with per-dataset models",
       "A published threat model states what federated simulation does not prove",
@@ -246,6 +254,8 @@ export const projects: Project[] = [
       "Server-side MIME parsing feeds a TF-IDF + soft-voting LogisticRegression/RandomForest ensemble; URL, sender-domain, header-authentication, and BEC analyzers add bounded, evidence-tagged risk. A decision engine combines them: risk = P×100 + url(≤20) + sender(≤30) + evidence(≤10), with 75/45 thresholds.",
     implementation:
       "The risk score is a heuristic policy score, never a calibrated probability — the UI labels it \"Risk score\" and shows P(phishing) separately. An optional LLM adds plain-language summaries, but deterministic signals are the source of truth. Scans persist by content hash in SQLite, and the dashboard shows a Demo Mode badge whenever live data is unreachable.",
+    resumeLine:
+      "Phishing detector (FastAPI): evidence-tagged ensemble, 98.25% accuracy on a 39,148-mail holdout",
     outcomes: [
       "Every verdict links to inspectable evidence; risk and probability stay separate fields",
       "Full evaluation protocol published — holdout size, split, and tuning caveats included",

@@ -13,52 +13,33 @@ export type ExperienceEntry = {
   description: string;
   highlights: string[];
   skills?: string[];
+  /** Optional short verifiable line under the organization (e.g. CGPA). */
+  detail?: string;
 };
 
 export const experience: ExperienceEntry[] = [
   {
     type: "work",
-    title: "Independent Open-Source Developer",
-    organization: "Self-directed",
-    location: "Amravati, Maharashtra, India",
-    period: "2024 — Present",
-    description:
-      "Building and publishing original systems — mesh messaging, face-verified attendance, federated intrusion detection, and phishing detection — each documented with architecture, trade-offs, and honest limits.",
-    highlights: [
-      "OneBit — BLE mesh messenger with end-to-end encryption (Flutter/Dart)",
-      "FaceSnap — face-verified attendance (Next.js + FastAPI + InsightFace)",
-      "AIPFL-IDS — simulated federated intrusion detection research prototype",
-      "Phishing detection — traceable verdicts with a published evaluation protocol",
-    ],
-    skills: ["Flutter", "Dart", "Python", "TypeScript", "TensorFlow"],
-  },
-  {
-    type: "work",
-    title: "AIML Intern",
+    title: "Machine Learning Intern",
     organization: "Align Infotech",
     location: "Nagpur, Maharashtra, India",
-    period: "July 2025 — October 2025",
+    period: "Jul 2025 – Oct 2025",
     description:
-      "Built NLP-based resume parsing and semantic matching systems for ATS optimization.",
+      "Built NLP-based resume parsing and semantic matching pipelines (Python, spaCy) for ATS optimization.",
     highlights: [
-      "Built resume parsing and semantic matching pipelines with Python and spaCy",
-      "Improved preprocessing and inference workflows for faster real-time responses",
-      "Worked with structured data pipelines for resume–job matching",
+      "Structured resume–job matching data pipelines end to end",
     ],
     skills: ["Python", "spaCy", "NLP"],
   },
   {
     type: "work",
-    title: "AIML Intern",
+    title: "Machine Learning Intern",
     organization: "AD Infocom Systems",
     location: "Nagpur, Maharashtra, India",
-    period: "December 2024 — January 2025",
+    period: "Dec 2024 – Jan 2025",
     description:
-      "Built an AI-powered chatbot that recommended products based on user purchase behavior.",
-    highlights: [
-      "Built an AI product-recommendation chatbot for an e-commerce website",
-      "Optimized ML workflows to improve recommendation relevance and response performance",
-    ],
+      "Built an AI product-recommendation chatbot for an e-commerce website, recommending products from user purchase behavior.",
+    highlights: [],
     skills: ["Python", "Machine Learning"],
   },
   {
@@ -66,28 +47,23 @@ export const experience: ExperienceEntry[] = [
     title: "Class Representative & Project Team Lead",
     organization: "Tulsiramji Gaikwad-Patil College of Engineering & Technology",
     location: "Nagpur, Maharashtra, India",
-    period: "August 2023 — 2026",
+    period: "Aug 2023 – May 2026",
     description:
-      "Elected class representative and project team lead — the liaison between faculty and 75+ students.",
-    highlights: [
-      "Served as the liaison between faculty and 75+ students",
-      "Led technical teams on AI-based project development",
-      "Organized workshops and peer initiatives on campus",
-    ],
+      "Elected class representative and project team lead — the liaison between faculty and 75+ students; led AI-based project teams and organized campus workshops.",
+    highlights: [],
   },
   {
     type: "education",
     title: "Bachelor of Technology in Information Technology",
     organization:
-      "Tulsiramji Gaikwad-Patil College of Engineering & Technology (TGPCET), Nagpur",
+      "Tulsiramji Gaikwad-Patil College of Engineering & Technology (TGPCET)",
     location: "Nagpur, Maharashtra, India",
-    period: "2022 — 2026",
+    period: "2022 – 2026",
+    detail: "CGPA 9.10/10 · First Class with Distinction",
     description:
-      "Graduated Summer 2026 with First Class with Distinction (final CGPA 9.10). Autonomous institute affiliated to Rashtrasant Tukadoji Maharaj Nagpur University.",
+      "Autonomous institute affiliated to Rashtrasant Tukadoji Maharaj Nagpur University.",
     highlights: [
-      "Coursework: data structures, algorithms, DBMS, operating systems, computer networks, TCP/IP",
-      "Coursework: software engineering & project management, cloud computing, internet of things",
-      "Coursework: artificial intelligence & machine learning, cryptography & information security",
+      "Coursework: DSA, DBMS, OS, computer networks, AI/ML, cloud computing, IoT, security",
     ],
     skills: ["Python", "Java", "C++", "SQL"],
   },
@@ -177,7 +153,9 @@ export const skillGroups: SkillGroup[] = [
 export type Achievement = {
   title: string;
   organization: string;
-  date: string;
+  kind: "award" | "certification";
+  /** Year only when it can be verified; certifications may omit it. */
+  date?: string;
   description: string;
   url?: string;
 };
@@ -186,6 +164,7 @@ export const achievements: Achievement[] = [
   {
     title: "CyberHack 2025 — Top 20 National Finalist",
     organization: "Selected under the Cyber Police Division",
+    kind: "award",
     date: "2025",
     description:
       "Among the top 20 national teams for a dark-web surveillance prototype: Python automation over Tor to collect and triage posts, with NLP/NER prioritization and real-time dashboards for analysis. Resume-reported; no public repository.",
@@ -193,14 +172,14 @@ export const achievements: Achievement[] = [
   {
     title: "Geodata Processing Using Python & ML",
     organization: "Indian Space Research Organisation (ISRO)",
-    date: "Certification",
+    kind: "certification",
     description:
       "Certified in geospatial data processing with Python and machine learning for remote-sensing and Earth-observation workflows.",
   },
   {
     title: "AWS Academy Graduate — Machine Learning Foundations",
     organization: "AWS Academy",
-    date: "Certification",
+    kind: "certification",
     description:
       "Completed the AWS Academy machine learning foundations curriculum covering core ML concepts and AWS ML services.",
   },
@@ -231,5 +210,6 @@ export const profile = {
   phone: "+91 77578 48083",
   github: "github.com/PrathamWankhade",
   linkedin: "linkedin.com/in/pratham-wankhade",
-  bio: `B.Tech IT graduate (TGPCET Nagpur, First Class with Distinction). I build AI, security, and offline-first systems — mesh messaging, face-verified attendance, federated intrusion detection, and phishing detection — each documented with architecture, trade-offs, and honest limits.`,
+  site: "portfolio.prathamwankhade.dev",
+  bio: `B.Tech IT graduate (TGPCET Nagpur, First Class with Distinction). I build AI, security, and offline-first systems — each project documented with its architecture, trade-offs, and honest limits.`,
 };

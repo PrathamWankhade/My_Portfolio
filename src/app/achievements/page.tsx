@@ -38,7 +38,10 @@ export default function AchievementsPage() {
                 <Card variant="bordered" className="hover-card p-6 h-full">
                   <CardTitle className="mb-2">{a.title}</CardTitle>
                   <p className="text-sm text-ink-secondary mb-4">{a.organization}</p>
-                  <p className="text-xs font-mono text-cobalt">{a.date}</p>
+                  <p className="text-xs font-mono text-cobalt">
+                    {a.kind === "certification" ? "Certification" : "Award"}
+                    {a.date ? ` · ${a.date}` : ""}
+                  </p>
                   <p className="mt-4 text-sm text-ink-secondary leading-relaxed max-w-[65ch]">
                     {a.description}
                   </p>
