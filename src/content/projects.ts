@@ -30,6 +30,8 @@ export type Project = {
   outcomes: string[];
   /** One-line résumé rendering: stack + strongest verified fact (with its condition). */
   resumeLine?: string;
+  /** Bullets for the detailed CV — facts only, conditions preserved. */
+  cvHighlights?: string[];
   featured: boolean;
 };
 
@@ -87,6 +89,11 @@ export const projects: Project[] = [
       "Built in Flutter/Dart with a custom BLE mesh routing protocol. Messages are encrypted with AES-256-GCM before leaving the device; identity is an Ed25519 key pair with X25519 derived for session agreement. CI runs the full test suite and fails the build on a single flutter analyze issue.",
     resumeLine:
       "Decentralized BLE messenger (Flutter/Dart): multi-hop mesh routing, AES-256-GCM via X25519, zero servers",
+    cvHighlights: [
+      "Custom BLE mesh protocol with multi-hop routing, automatic topology discovery, and route recovery",
+      "End-to-end encryption with AES-256-GCM; Ed25519 identity keys with X25519 derived for session agreement",
+      "Offline outbox queues messages for out-of-range peers and sends them once a path exists; CI enforces zero flutter analyze issues",
+    ],
     outcomes: [
       "Two devices can converse with no internet, no server, and no account",
       "Messages queue for out-of-range peers and send themselves once the mesh finds a path",
@@ -146,6 +153,11 @@ export const projects: Project[] = [
       "Enrollment captures a guided face sample and syncs the embedding to Qdrant. Live scans run liveness analysis before embedding; only verified matches within threshold become attendance events, once per session. Every backend route verifies Firebase ID tokens, and a chatbot is proxied server-side so no API key reaches the browser.",
     resumeLine:
       "Face-verified attendance (Next.js + FastAPI): ArcFace embeddings in Qdrant with liveness checks",
+    cvHighlights: [
+      "512-dim InsightFace ArcFace embeddings in Qdrant with cosine-distance matching (0.35 threshold, a choice not a calibrated probability)",
+      "Liveness analysis (rPPG, blink, motion) across multiple frames against photo and video replay",
+      "Detection, recognition, and attendance kept as separate states; unknown faces go to a review queue, never the register",
+    ],
     outcomes: [
       "Only verified, live matches become attendance records — unknowns wait in a review queue",
       "Four capture modes — 1:1, doorway batch, group photo, CCTV/Pi streams — write one canonical schema",
@@ -197,6 +209,11 @@ export const projects: Project[] = [
       "Client partitions are simulated in one process — the repo states this explicitly: the project does not yet demonstrate privacy guarantees for independent clients, secure aggregation, or differential privacy. Training streams 200K-row batches and clips extreme features by percentile.",
     resumeLine:
       "Federated IDS prototype (TensorFlow): FedAvg across 10 simulated clients, two IoT benchmark datasets",
+    cvHighlights: [
+      "FedAvg across 10 simulated clients on CICIoT2023 and NF-ToN-IoT-V2, with per-dataset scalers, encoders, and models",
+      "Single-process simulation documented as such: no privacy guarantees for independent clients, secure aggregation, or differential privacy",
+      "Percentile clipping for extreme byte-rate features and 200K-row streaming batches over 45M+ records",
+    ],
     outcomes: [
       "Two datasets train and serve through one API with per-dataset models",
       "A published threat model states what federated simulation does not prove",
@@ -256,6 +273,11 @@ export const projects: Project[] = [
       "The risk score is a heuristic policy score, never a calibrated probability — the UI labels it \"Risk score\" and shows P(phishing) separately. An optional LLM adds plain-language summaries, but deterministic signals are the source of truth. Scans persist by content hash in SQLite, and the dashboard shows a Demo Mode badge whenever live data is unreachable.",
     resumeLine:
       "Phishing detector (FastAPI): evidence-tagged ensemble, 98.25% accuracy on a 39,148-mail holdout",
+    cvHighlights: [
+      "TF-IDF + soft-voting ensemble; 98.25% accuracy on a 39,148-mail stratified holdout (CV F1-macro 98.14%)",
+      "Risk = P(phishing) × 100 + bounded URL, sender, and header evidence — probability and policy score stay separate fields",
+      "Every verdict links to inspectable evidence; deterministic signals survive, and failures surface as explicit errors, never silent heuristics",
+    ],
     outcomes: [
       "Every verdict links to inspectable evidence; risk and probability stay separate fields",
       "Full evaluation protocol published — holdout size, split, and tuning caveats included",

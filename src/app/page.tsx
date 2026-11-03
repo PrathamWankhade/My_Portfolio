@@ -88,7 +88,7 @@ function Hero() {
                 </Link>
               </Button>
               <Button asChild size="lg" variant="outline">
-                <Link href="/resume">Résumé</Link>
+                <Link href="/cv">CV</Link>
               </Button>
             </div>
           </div>

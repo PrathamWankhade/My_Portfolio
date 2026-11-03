@@ -14,7 +14,7 @@ export function PrintButton() {
         // Chrome names the saved PDF after the document title —
         // use an upload-friendly filename during the print dialog.
         const previous = document.title;
-        document.title = "Pratham_Wankhade_Resume";
+        document.title = "Pratham_Wankhade_CV";
         try {
           window.print();
         } finally {

@@ -273,16 +273,16 @@ a {
 }
 
 /* ------------------------------------------------------------------ */
-/* Print / Save-as-PDF — used by the résumé page                       */
+/* Print / Save-as-PDF — used by the CV page                           */
 /* ------------------------------------------------------------------ */
 
 /* Real list markers (text painting, so they print without backgrounds) */
-.resume-ul {
+.cv-ul {
   list-style: disc;
   padding-left: 1.15rem;
 }
 
-.resume-ul > li::marker {
+.cv-ul > li::marker {
   color: var(--cobalt);
 }
 
@@ -295,7 +295,7 @@ a {
 
   @page {
     size: A4;
-    margin: 12mm;
+    margin: 10mm;
   }
 
   html,
@@ -309,7 +309,7 @@ a {
     padding: 0 !important;
   }
 
-  .resume-sheet {
+  .cv-sheet {
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
@@ -320,7 +320,7 @@ a {
     print-color-adjust: exact;
   }
 
-  .resume-h2 {
+  .cv-h2 {
     border-bottom-color: #cbd5e1 !important;
     color: #1d4ed8 !important;
     /* never orphan a section heading at the bottom of a page */
@@ -328,18 +328,18 @@ a {
     page-break-after: avoid;
   }
 
-  .resume-sheet h3 {
+  .cv-sheet h3 {
     break-after: avoid;
     page-break-after: avoid;
   }
 
   /* Coral (#ef4444) is too light for white paper — darken in print only */
-  .resume-role {
+  .cv-role {
     color: #b91c1c !important;
   }
 
   /* Keep entries whole across page breaks */
-  .resume-item,
+  .cv-item,
   figure,
   table {
     break-inside: avoid;

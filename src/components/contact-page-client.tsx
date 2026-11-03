@@ -71,8 +71,8 @@ export default function ContactPageClient() {
           </h1>
           <p className="rise rise-3 text-lg text-ink-secondary leading-relaxed max-w-lg mx-auto">
             Recruiting, collaboration, or a question about any of the projects —
-            write directly. No hidden backend: the form composes an email in
-            your own mail app, and these channels reach me as well.
+            write here and it lands in my inbox. Your email is used only to
+            reply; nothing is stored on this site.
           </p>
         </div>
       </section>
@@ -98,22 +98,22 @@ export default function ContactPageClient() {
                   Or write directly
                 </div>
 
-                {/* Résumé — an obvious, verifiable download */}
+                {/* CV — an obvious, verifiable download */}
                 <Card
                   variant="bordered"
                   className="group mb-4 p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-card border-cobalt/30 bg-cobalt-soft/50"
                 >
                   <Link
-                    href="/resume"
+                    href="/cv"
                     className="flex items-center gap-4 text-cobalt"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-cobalt/30 bg-surface">
                       <FileText className="h-5 w-5" aria-hidden="true" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <h4 className="font-semibold text-ink">Résumé</h4>
+                      <h4 className="font-semibold text-ink">CV</h4>
                       <p className="text-sm text-ink-secondary">
-                        Experience, education & skills — save as PDF
+                        Full education, experience, projects &amp; skills — save as PDF
                       </p>
                     </div>
                     <ArrowRight

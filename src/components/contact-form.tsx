@@ -1,89 +1,150 @@
 "use client";
 
 import { useState } from "react";
-import { Send, ArrowRight, Mail } from "lucide-react";
+import { Send, Loader2, AlertCircle, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const RECIPIENT = "prathamwankhade2004@gmail.com";
 
-type Status = "idle" | "opening" | "opened";
+type Status = "idle" | "sending" | "success" | "error";
+
+type FieldErrors = Partial<Record<"name" | "email" | "subject" | "message", string>>;
+
+const FIELDS = ["name", "email", "subject", "message"] as const;
 
 /**
- * Honest contact form: there is no backend, so submitting composes a
- * pre-filled message and hands it to the visitor's own email app.
- * Nothing is sent silently and nothing is stored here.
+ * Posts to /api/contact, which relays the message through Resend.
+ * The visitor's email address is never shown on the page; it is only
+ * used as the reply-to on the delivered mail.
  */
 export function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
+  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
+  const [fallback, setFallback] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (status === "sending") return;
+
     const form = e.currentTarget;
     const data = new FormData(form);
-    const name = String(data.get("name") ?? "").trim();
-    const email = String(data.get("email") ?? "").trim();
-    const subject = String(data.get("subject") ?? "").trim();
-    const message = String(data.get("message") ?? "").trim();
+    const payload = {
+      name: String(data.get("name") ?? "").trim(),
+      email: String(data.get("email") ?? "").trim(),
+      subject: String(data.get("subject") ?? "").trim(),
+      message: String(data.get("message") ?? "").trim(),
+      website: String(data.get("website") ?? ""),
+    };
 
-    const body = [
-      message,
-      "",
-      "—",
-      `From: ${name} <${email}>`,
-    ].join("\n");
+    // Clear stale feedback, then check locally so the visitor isn't
+    // charged a round-trip for an obviously empty field.
+    setError(null);
+    setFieldErrors({});
+    setFallback(false);
 
-    const mailto = `mailto:${RECIPIENT}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(body)}`;
+    const local: FieldErrors = {};
+    for (const key of FIELDS) {
+      if (!payload[key]) local[key] = "This field is required.";
+    }
+    if (Object.keys(local).length > 0) {
+      setFieldErrors(local);
+      setStatus("error");
+      setError("Please fill in the highlighted fields.");
+      return;
+    }
 
-    setStatus("opening");
-    window.location.href = mailto;
-    // The mail client may open in-app or in the background; reflect that
-    // honestly rather than claiming a message was delivered.
-    window.setTimeout(() => setStatus("opened"), 1200);
+    setStatus("sending");
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+
+      const result = (await response.json().catch(() => null)) as
+        | { ok?: boolean; error?: string; fields?: FieldErrors; code?: string }
+        | null;
+
+      if (response.ok && result?.ok) {
+        setStatus("success");
+        form.reset();
+        return;
+      }
+
+      setFieldErrors(result?.fields ?? {});
+      setStatus("error");
+      setError(
+        result?.error ??
+          "The message couldn't be sent right now. Please email me directly."
+      );
+      // Only offer the mailto fallback when the backend itself failed —
+      // validation errors are fixable in the form.
+      setFallback(response.status !== 400);
+    } catch {
+      setStatus("error");
+      setError(
+        "The message couldn't be sent — the connection failed. Please email me directly."
+      );
+      setFallback(true);
+    }
   };
+
+  const mailtoHref = (() => {
+    const subject = "Hello Pratham";
+    return `mailto:${RECIPIENT}?subject=${encodeURIComponent(subject)}`;
+  })();
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label htmlFor="name" className="block text-sm font-medium text-ink mb-2">
-          Name
-        </label>
-        <input
-          id="name"
-          name="name"
-          required
-          autoComplete="name"
-          className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-cobalt transition-all"
-          placeholder="Your name"
-        />
+      {/* Honeypot: hidden from people, tempting to bots. */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-ink mb-2">
-          Email
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-cobalt transition-all"
-          placeholder="you@example.com"
-        />
-      </div>
-      <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-ink mb-2">
-          Subject
-        </label>
-        <input
-          id="subject"
-          name="subject"
-          required
-          className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-cobalt transition-all"
-          placeholder="What&apos;s this about?"
-        />
-      </div>
+
+      <Field
+        id="name"
+        label="Name"
+        error={fieldErrors.name}
+        inputProps={{
+          name: "name",
+          required: true,
+          autoComplete: "name",
+          placeholder: "Your name",
+          maxLength: 100,
+          disabled: status === "sending",
+        }}
+      />
+
+      <Field
+        id="email"
+        label="Email"
+        error={fieldErrors.email}
+        inputProps={{
+          name: "email",
+          type: "email",
+          required: true,
+          autoComplete: "email",
+          placeholder: "you@example.com",
+          maxLength: 254,
+          disabled: status === "sending",
+        }}
+      />
+
+      <Field
+        id="subject"
+        label="Subject"
+        error={fieldErrors.subject}
+        inputProps={{
+          name: "subject",
+          required: true,
+          placeholder: "What's this about?",
+          maxLength: 200,
+          disabled: status === "sending",
+        }}
+      />
+
       <div>
         <label htmlFor="message" className="block text-sm font-medium text-ink mb-2">
           Message
@@ -93,65 +154,111 @@ export function ContactForm() {
           name="message"
           rows={6}
           required
-          className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-cobalt transition-all"
+          maxLength={5000}
+          disabled={status === "sending"}
+          aria-invalid={fieldErrors.message ? true : undefined}
+          aria-describedby={fieldErrors.message ? "message-error" : undefined}
+          className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-cobalt transition-all disabled:opacity-60"
           placeholder="Tell me about your project or question..."
         />
+        {fieldErrors.message && (
+          <p id="message-error" className="mt-1.5 text-sm text-coral">
+            {fieldErrors.message}
+          </p>
+        )}
       </div>
 
       <div className="rounded-lg border border-border bg-surface-raised p-4 text-sm text-ink-secondary leading-relaxed">
-        This page has no backend. Submitting opens your own email app with the
-        message pre-filled to{" "}
-        <a
-          href={`mailto:${RECIPIENT}`}
-          className="font-medium text-cobalt underline underline-offset-2"
-        >
-          {RECIPIENT}
-        </a>{" "}
-        — nothing is uploaded or stored here.
+        Your message goes straight to my inbox. Your email address is only used
+        to reply — nothing is stored on this site.
       </div>
 
       <Button
         type="submit"
-        disabled={status === "opening"}
+        disabled={status === "sending"}
         variant="color"
         color="coral"
         className="w-full"
       >
-        {status === "opening" ? (
+        {status === "sending" ? (
           <>
-            Opening your email app…
-            <ArrowRight className="ml-2 h-4 w-4 animate-pulse" aria-hidden="true" />
+            Sending…
+            <Loader2 className="ml-2 h-4 w-4 animate-spin" aria-hidden="true" />
           </>
         ) : (
           <>
-            Compose in email
+            Send message
             <Send className="ml-2 h-4 w-4" aria-hidden="true" />
           </>
         )}
       </Button>
 
-      <div aria-live="polite">
-        {status === "opened" && (
+      <div aria-live="polite" aria-atomic="true">
+        {status === "success" && (
           <div className="flex gap-3 rounded-lg border border-emerald/30 bg-emerald-soft p-4 text-emerald">
-            <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
             <div>
-              <p className="font-medium text-emerald">
-                Your email app should have opened.
-              </p>
+              <p className="font-medium text-emerald">Message sent.</p>
               <p className="text-sm text-emerald mt-1">
-                If nothing opened, write directly to{" "}
-                <a
-                  href={`mailto:${RECIPIENT}`}
-                  className="underline underline-offset-2"
-                >
-                  {RECIPIENT}
-                </a>
-                .
+                Thanks — I&apos;ll reply to the address you gave.
               </p>
+            </div>
+          </div>
+        )}
+
+        {status === "error" && error && (
+          <div className="flex gap-3 rounded-lg border border-coral/30 bg-coral-soft p-4 text-coral">
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+            <div>
+              <p className="font-medium text-coral">{error}</p>
+              {fallback && (
+                <p className="text-sm text-coral mt-1">
+                  You can also write to me directly at{" "}
+                  <a
+                    href={mailtoHref}
+                    className="underline underline-offset-2 font-medium"
+                  >
+                    {RECIPIENT}
+                  </a>
+                  .
+                </p>
+              )}
             </div>
           </div>
         )}
       </div>
     </form>
+  );
+}
+
+function Field({
+  id,
+  label,
+  error,
+  inputProps,
+}: {
+  id: string;
+  label: string;
+  error?: string;
+  inputProps: React.InputHTMLAttributes<HTMLInputElement>;
+}) {
+  return (
+    <div>
+      <label htmlFor={id} className="block text-sm font-medium text-ink mb-2">
+        {label}
+      </label>
+      <input
+        id={id}
+        aria-invalid={error ? true : undefined}
+        aria-describedby={error ? `${id}-error` : undefined}
+        className="w-full rounded-lg border border-border bg-surface px-4 py-3 text-ink focus:outline-none focus:ring-2 focus:ring-cobalt transition-all disabled:opacity-60"
+        {...inputProps}
+      />
+      {error && (
+        <p id={`${id}-error`} className="mt-1.5 text-sm text-coral">
+          {error}
+        </p>
+      )}
+    </div>
   );
 }

@@ -20,6 +20,29 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Contact form
+
+`/contact` posts to `src/app/api/contact/route.ts`, which relays the message
+through [Resend](https://resend.com). Copy `.env.example` to `.env.local` and
+fill in the values:
+
+```bash
+cp .env.example .env.local
+```
+
+| Variable | Required | Purpose |
+| --- | --- | --- |
+| `RESEND_API_KEY` | yes | API key from <https://resend.com/api-keys>. Without it the endpoint returns 503 and the form shows the direct email address instead. |
+| `CONTACT_TO_EMAIL` | no | Inbox that receives submissions. Defaults to `prathamwankhade2004@gmail.com`. |
+| `CONTACT_FROM_EMAIL` | no | Sender. Defaults to `Portfolio Contact <onboarding@resend.dev>`, which Resend only allows to mail the account owner. Verify a domain in Resend to send from your own address. |
+
+The visitor's address is set as `reply_to`, so replying in Gmail answers them
+directly. The route also validates and length-limits every field, drops
+honeypot submissions, and rate-limits to 5 messages per 10 minutes per IP.
+
+On Vercel, add the same variables under **Project → Settings → Environment
+Variables** and redeploy.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

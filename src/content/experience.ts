@@ -27,7 +27,9 @@ export const experience: ExperienceEntry[] = [
     description:
       "Built NLP-based resume parsing and semantic matching pipelines (Python, spaCy) for ATS optimization.",
     highlights: [
+      "Resume parsing and semantic matching with Python and spaCy",
       "Structured resume–job matching data pipelines end to end",
+      "Preprocessing and inference workflows tuned for responsive results",
     ],
     skills: ["Python", "spaCy", "NLP"],
   },
@@ -39,7 +41,10 @@ export const experience: ExperienceEntry[] = [
     period: "Dec 2024 – Jan 2025",
     description:
       "Built an AI product-recommendation chatbot for an e-commerce website, recommending products from user purchase behavior.",
-    highlights: [],
+    highlights: [
+      "Product-recommendation chatbot driven by purchase behavior",
+      "Recommendation workflows tuned for relevance and response time",
+    ],
     skills: ["Python", "Machine Learning"],
   },
   {
@@ -49,8 +54,11 @@ export const experience: ExperienceEntry[] = [
     location: "Nagpur, Maharashtra, India",
     period: "Aug 2023 – May 2026",
     description:
-      "Elected class representative and project team lead — the liaison between faculty and 75+ students; led AI-based project teams and organized campus workshops.",
-    highlights: [],
+      "Elected class representative and project team lead — the liaison between faculty and 75+ students.",
+    highlights: [
+      "Led technical teams on AI-based project development",
+      "Organized workshops and peer initiatives on campus",
+    ],
   },
   {
     type: "education",
