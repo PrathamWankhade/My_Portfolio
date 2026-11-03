@@ -5,12 +5,12 @@ import { PrintButton } from "@/components/print-button";
 export const metadata = {
   title: "CV",
   description:
-    "Curriculum vitae for Pratham Wankhade — AI/ML & full-stack engineer. Education, experience, projects, skills, certifications, and presentations.",
+    "Curriculum vitae for Pratham Wankhade — Information Technology graduate. AI/ML, software engineering, and distributed systems: education, experience, projects, skills, certifications, and presentations.",
 };
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="cv-h2 editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-2.5 border-b border-border pb-1.5">
+    <h2 className="cv-h2 editor-text text-xs font-bold tracking-widest text-cobalt uppercase mb-2.5 border-b border-border pb-1.5">
       {children}
     </h2>
   );
@@ -62,6 +62,9 @@ export default function CvPage() {
                 {profile.name}
               </h1>
               <p className="cv-role text-coral font-medium mt-1">{profile.role}</p>
+              <p className="text-[12px] print:text-[11.5px] text-ink-secondary mt-0.5">
+                {profile.specialties}
+              </p>
               <p className="mt-2 text-[13px] print:text-[12.5px] text-ink-secondary leading-relaxed print:leading-snug">
                 {profile.location} · {profile.email} · {profile.phone}
                 <br />
@@ -94,9 +97,11 @@ export default function CvPage() {
                     {entry.detail && (
                       <p className="text-[11px] font-medium text-ink mt-0.5">{entry.detail}</p>
                     )}
-                    <p className="cv-p mt-0.5 text-[13px] print:text-[12.5px] text-ink-secondary leading-relaxed print:leading-snug">
-                      {entry.description}
-                    </p>
+                    {entry.description && (
+                      <p className="cv-p mt-0.5 text-[13px] print:text-[12.5px] text-ink-secondary leading-relaxed print:leading-snug">
+                        {entry.description}
+                      </p>
+                    )}
                     {entry.highlights.length > 0 && (
                       <ul className="cv-ul mt-1 space-y-0.5">
                         {entry.highlights.map((h, i) => (
@@ -124,9 +129,11 @@ export default function CvPage() {
                     <p className="text-[11px] text-cobalt font-medium">
                       {entry.organization} · {entry.location}
                     </p>
-                    <p className="cv-p mt-0.5 text-[13px] print:text-[12.5px] text-ink-secondary leading-relaxed print:leading-snug">
-                      {entry.description}
-                    </p>
+                    {entry.description && (
+                      <p className="cv-p mt-0.5 text-[13px] print:text-[12.5px] text-ink-secondary leading-relaxed print:leading-snug">
+                        {entry.description}
+                      </p>
+                    )}
                     {entry.highlights.length > 0 && (
                       <ul className="cv-ul mt-1 space-y-0.5">
                         {entry.highlights.map((h, i) => (
@@ -152,7 +159,7 @@ export default function CvPage() {
                         {project.name}
                         <span className="font-mono text-[11px] text-muted font-normal"> — {project.status}</span>
                       </h3>
-                      <span className="text-[11px] text-muted font-mono break-all">
+                      <span className="text-[11px] text-ink-secondary font-mono break-all">
                         {project.repo?.replace(/^https?:\/\//, "")}
                       </span>
                     </div>

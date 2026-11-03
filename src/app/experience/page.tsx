@@ -94,9 +94,11 @@ function TimelineSection({ title, color, entries }: TimelineSectionProps) {
               {entry.detail && (
                 <p className="text-xs font-medium text-ink mt-0.5">{entry.detail}</p>
               )}
-              <p className="mt-2.5 text-sm text-ink-secondary leading-relaxed max-w-[65ch]">
-                {entry.description}
-              </p>
+              {entry.description && (
+                <p className="mt-2.5 text-sm text-ink-secondary leading-relaxed max-w-[65ch]">
+                  {entry.description}
+                </p>
+              )}
               {entry.highlights && entry.highlights.length > 0 && (
                 <ul className="mt-3 space-y-1 pl-4 border-l-2 border-black/10">
                   {entry.highlights.map((h: string, j: number) => (

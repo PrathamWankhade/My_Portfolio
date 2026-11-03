@@ -27,9 +27,8 @@ export const experience: ExperienceEntry[] = [
     description:
       "Built NLP-based resume parsing and semantic matching pipelines (Python, spaCy) for ATS optimization.",
     highlights: [
-      "Resume parsing and semantic matching with Python and spaCy",
-      "Structured resume–job matching data pipelines end to end",
-      "Preprocessing and inference workflows tuned for responsive results",
+      "Engineered structured data pipelines for resume-to-job matching",
+      "Tuned preprocessing and inference workflows for responsive results",
     ],
     skills: ["Python", "spaCy", "NLP"],
   },
@@ -42,8 +41,7 @@ export const experience: ExperienceEntry[] = [
     description:
       "Built an AI product-recommendation chatbot for an e-commerce website, recommending products from user purchase behavior.",
     highlights: [
-      "Product-recommendation chatbot driven by purchase behavior",
-      "Recommendation workflows tuned for relevance and response time",
+      "Tuned recommendation workflows for relevance and response time",
     ],
     skills: ["Python", "Machine Learning"],
   },
@@ -56,7 +54,7 @@ export const experience: ExperienceEntry[] = [
     description:
       "Elected class representative and project team lead — the liaison between faculty and 75+ students.",
     highlights: [
-      "Led technical teams on AI-based project development",
+      "Led technical teams on AI project development",
       "Organized workshops and peer initiatives on campus",
     ],
   },
@@ -81,8 +79,7 @@ export const experience: ExperienceEntry[] = [
     organization: "Harikisan Maloo International School",
     location: "Amravati, Maharashtra, India",
     period: "2022",
-    description:
-      "Completed higher secondary education (science stream).",
+    description: "",
     highlights: [],
   },
   {
@@ -91,7 +88,7 @@ export const experience: ExperienceEntry[] = [
     organization: "Golden Kids English High School",
     location: "Amravati, Maharashtra, India",
     period: "2020",
-    description: "Completed matriculation.",
+    description: "",
     highlights: [],
   },
 ];
@@ -106,23 +103,20 @@ export type SkillGroup = {
 
 export const skillGroups: SkillGroup[] = [
   {
-    name: "Languages",
+    name: "Programming",
     skills: ["Python", "TypeScript", "JavaScript", "Dart", "SQL", "C++", "Bash"],
     level: "proficient",
     usedIn: ["onebit", "faceSnap", "aipfl-ids", "phishing-detection"],
   },
   {
-    name: "AI & computer vision",
-    skills: [
-      "TensorFlow",
-      "PyTorch",
-      "scikit-learn",
-      "OpenCV",
-      "spaCy",
-      "InsightFace",
-      "NLP",
-      "Computer Vision",
-    ],
+    name: "Machine learning",
+    skills: ["TensorFlow", "scikit-learn", "FedAvg"],
+    level: "proficient",
+    usedIn: ["aipfl-ids", "phishing-detection"],
+  },
+  {
+    name: "AI & NLP",
+    skills: ["NLP", "spaCy", "OpenCV", "InsightFace", "Computer Vision"],
     level: "proficient",
     usedIn: ["faceSnap", "aipfl-ids", "phishing-detection"],
   },
@@ -139,7 +133,7 @@ export const skillGroups: SkillGroup[] = [
     usedIn: ["onebit"],
   },
   {
-    name: "Backend & APIs",
+    name: "Backend",
     skills: ["FastAPI", "Flask", "Node.js"],
     level: "proficient",
     usedIn: ["faceSnap", "phishing-detection", "aipfl-ids"],
@@ -151,7 +145,7 @@ export const skillGroups: SkillGroup[] = [
     usedIn: ["onebit", "faceSnap", "phishing-detection"],
   },
   {
-    name: "Infrastructure & tools",
+    name: "Infrastructure",
     skills: ["Docker", "Linux", "Git", "AWS"],
     level: "working",
     usedIn: ["aipfl-ids", "phishing-detection"],
@@ -212,12 +206,14 @@ export const talks: Talk[] = [
 
 export const profile = {
   name: "Pratham Wankhade",
-  role: "AI/ML & Full-Stack Engineer",
+  role: "Information Technology Graduate",
+  /** Specialisations, not a job title — no designation is claimed. */
+  specialties: "AI/ML · Software Engineering · Distributed Systems",
   location: "Amravati, Maharashtra, India",
   email: "prathamwankhade2004@gmail.com",
   phone: "+91 77578 48083",
   github: "github.com/PrathamWankhade",
   linkedin: "linkedin.com/in/pratham-wankhade",
   site: "portfolio.prathamwankhade.dev",
-  bio: `B.Tech IT graduate (TGPCET Nagpur, First Class with Distinction). I build AI, security, and offline-first systems — each project documented with its architecture, trade-offs, and honest limits.`,
+  bio: `Information Technology graduate with hands-on experience in machine learning pipelines, NLP, computer vision, and federated learning simulations, alongside offline-first systems engineering. Skilled in Python, TensorFlow, FastAPI, and React; every project is documented with its architecture, trade-offs, and limits.`,
 };
