@@ -221,8 +221,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "phishing-detection",
-    name: "Phishing Detection",
+    slug: "phishguard",
+    name: "PhishGuard",
     tagline: "Traceable phishing verdicts with honest, documented scores",
     color: "tangerine",
     tags: ["AI/ML", "Cybersecurity"],
@@ -246,7 +246,7 @@ export const projects: Project[] = [
       "LLM explanations",
     ],
     status: "Completed",
-    repo: "https://github.com/PrathamWankhade/email-phishing-detection-system",
+    repo: "https://github.com/PrathamWankhade/PhishGuard",
     featured: true,
     metrics: [
       {
@@ -272,7 +272,7 @@ export const projects: Project[] = [
     implementation:
       "The risk score is a heuristic policy score, never a calibrated probability — the UI labels it \"Risk score\" and shows P(phishing) separately. An optional LLM adds plain-language summaries, but deterministic signals are the source of truth. Scans persist by content hash in SQLite, and the dashboard shows a Demo Mode badge whenever live data is unreachable.",
     resumeLine:
-      "Phishing detector (FastAPI): evidence-tagged ensemble, 98.25% accuracy on a 39,148-mail holdout",
+      "PhishGuard (FastAPI): evidence-tagged ensemble, 98.25% accuracy on a 39,148-mail holdout",
     cvHighlights: [
       "TF-IDF + soft-voting ensemble; 98.25% accuracy on a 39,148-mail stratified holdout (CV F1-macro 98.14%)",
       "Risk = P(phishing) × 100 + bounded URL, sender, and header evidence — probability and policy score stay separate fields",

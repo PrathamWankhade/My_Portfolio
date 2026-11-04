@@ -106,25 +106,25 @@ export const skillGroups: SkillGroup[] = [
     name: "Programming",
     skills: ["Python", "TypeScript", "JavaScript", "Dart", "SQL", "C++", "Bash"],
     level: "proficient",
-    usedIn: ["onebit", "faceSnap", "aipfl-ids", "phishing-detection"],
+    usedIn: ["onebit", "faceSnap", "aipfl-ids", "phishguard"],
   },
   {
     name: "Machine learning",
     skills: ["TensorFlow", "scikit-learn", "FedAvg"],
     level: "proficient",
-    usedIn: ["aipfl-ids", "phishing-detection"],
+    usedIn: ["aipfl-ids", "phishguard"],
   },
   {
     name: "AI & NLP",
     skills: ["NLP", "spaCy", "OpenCV", "InsightFace", "Computer Vision"],
     level: "proficient",
-    usedIn: ["faceSnap", "aipfl-ids", "phishing-detection"],
+    usedIn: ["faceSnap", "aipfl-ids", "phishguard"],
   },
   {
     name: "Frontend",
     skills: ["React", "Next.js", "Tailwind CSS", "TypeScript"],
     level: "proficient",
-    usedIn: ["faceSnap", "phishing-detection", "aipfl-ids"],
+    usedIn: ["faceSnap", "phishguard", "aipfl-ids"],
   },
   {
     name: "Mobile",
@@ -136,19 +136,19 @@ export const skillGroups: SkillGroup[] = [
     name: "Backend",
     skills: ["FastAPI", "Flask", "Node.js"],
     level: "proficient",
-    usedIn: ["faceSnap", "phishing-detection", "aipfl-ids"],
+    usedIn: ["faceSnap", "phishguard", "aipfl-ids"],
   },
   {
     name: "Databases",
     skills: ["SQLite", "Qdrant", "Firebase", "Drift (SQLite)"],
     level: "working",
-    usedIn: ["onebit", "faceSnap", "phishing-detection"],
+    usedIn: ["onebit", "faceSnap", "phishguard"],
   },
   {
     name: "Infrastructure",
     skills: ["Docker", "Linux", "Git", "AWS"],
     level: "working",
-    usedIn: ["aipfl-ids", "phishing-detection"],
+    usedIn: ["aipfl-ids", "phishguard"],
   },
 ];
 

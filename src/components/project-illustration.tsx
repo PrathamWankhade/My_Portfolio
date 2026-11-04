@@ -296,7 +296,7 @@ const DIAGRAMS: Record<string, (p: { hex: string }) => React.ReactNode> = {
   onebit: OneBitDiagram,
   faceSnap: FaceSnapDiagram,
   "aipfl-ids": AipflDiagram,
-  "phishing-detection": PhishingDiagram,
+  "phishguard": PhishingDiagram,
 };
 
 /**

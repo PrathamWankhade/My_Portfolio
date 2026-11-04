@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
     return [
       // The résumé page was rebuilt as a detailed CV.
       { source: "/resume", destination: "/cv", permanent: true },
+      // The phishing project is named after its repository: PhishGuard.
+      {
+        source: "/projects/phishing-detection",
+        destination: "/projects/phishguard",
+        permanent: true,
+      },
     ];
   },
   turbopack: {
