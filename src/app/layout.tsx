@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   },
   description:
     "Information Technology graduate. AI/ML, software engineering, and distributed systems — mesh messaging, computer vision, security, and offline-first work, documented with architecture, trade-offs, and limits.",
-  metadataBase: new URL("https://portfolio.prathamwankhade.dev"),
+  metadataBase: new URL("https://prathamwankhades-portfolio.vercel.app"),
   alternates: {
     canonical: "/",
   },

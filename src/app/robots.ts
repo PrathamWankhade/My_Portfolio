@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://portfolio.prathamwankhade.dev/sitemap.xml",
+    sitemap: "https://prathamwankhades-portfolio.vercel.app/sitemap.xml",
   };
 }

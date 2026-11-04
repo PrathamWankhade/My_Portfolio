@@ -121,7 +121,7 @@ export async function POST(request: Request) {
     message,
     "",
     "—",
-    "Sent from the contact form at portfolio.prathamwankhade.dev",
+    "Sent from the contact form at prathamwankhades-portfolio.vercel.app",
   ].join("\n");
 
   const html = `
@@ -134,7 +134,7 @@ export async function POST(request: Request) {
       <p style="margin:0;white-space:pre-wrap">${escapeHtml(message)}</p>
       <hr style="border:none;border-top:1px solid #ddd;margin:16px 0" />
       <p style="margin:0;color:#666;font-size:12px">
-        Sent from the contact form at portfolio.prathamwankhade.dev
+        Sent from the contact form at prathamwankhades-portfolio.vercel.app
       </p>
     </div>
   `;

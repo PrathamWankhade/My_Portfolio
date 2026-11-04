@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { projects } from "@/content/projects";
 
-const base = "https://portfolio.prathamwankhade.dev";
+const base = "https://prathamwankhades-portfolio.vercel.app";
 
 /**
  * No `lastModified` is emitted: there is no tracked content-update timestamp,

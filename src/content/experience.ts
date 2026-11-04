@@ -214,6 +214,6 @@ export const profile = {
   phone: "+91 77578 48083",
   github: "github.com/PrathamWankhade",
   linkedin: "linkedin.com/in/pratham-wankhade",
-  site: "portfolio.prathamwankhade.dev",
+  site: "prathamwankhades-portfolio.vercel.app",
   bio: `Information Technology graduate with hands-on experience in machine learning pipelines, NLP, computer vision, and federated learning simulations, alongside offline-first systems engineering. Skilled in Python, TensorFlow, FastAPI, and React; every project is documented with its architecture, trade-offs, and limits.`,
 };
