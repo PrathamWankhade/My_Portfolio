@@ -10,7 +10,7 @@ import { getFeaturedProjects, type Project } from "@/content/projects";
 export const metadata = {
   title: "Home",
   description:
-    "Pratham Wankhade — Software engineer and technology-focused builder. AI, computer vision, security, and offline-first systems.",
+    "Pratham Wankhade — Information Technology graduate and technology-focused builder. AI, computer vision, security, and offline-first systems.",
 };
 
 export default function HomePage() {
@@ -75,7 +75,7 @@ function Hero() {
               <span className="text-coral italic">when the network doesn&apos;t.</span>
             </h1>
             <p className="text-lg text-ink-secondary leading-relaxed mb-9 max-w-xl rise rise-3">
-              I&apos;m Pratham Wankhade, an AI/ML and full-stack engineer based in
+              I&apos;m Pratham Wankhade, an Information Technology graduate based in
               Amravati, Maharashtra, India. I build mesh messaging, face-verified
               attendance, federated intrusion detection, and phishing detection —
               each documented with architecture, trade-offs, and honest limits.
@@ -217,7 +217,7 @@ function AboutSnippet() {
                 <span className="text-coral italic">after the opening credits</span>
               </h2>
               <p className="text-body text-ink-secondary leading-relaxed">
-                I&apos;m Pratham Wankhade — AI/ML and full-stack engineer,
+                I&apos;m Pratham Wankhade — Information Technology graduate,
                 builder, and occasional writer. I document systems with the same
                 care I use to build them: architecture, trade-offs, and honest
                 limits.

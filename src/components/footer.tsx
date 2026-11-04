@@ -15,7 +15,7 @@ export function Footer() {
               <Logo />
             </div>
             <p className="text-body text-ink-secondary leading-relaxed max-w-xs">
-              AI/ML &amp; full-stack engineer. Mesh messaging, computer vision,
+              Information Technology graduate. Mesh messaging, computer vision,
               security, and offline-first systems — documented with
               architecture, trade-offs, and honest limits.
             </p>

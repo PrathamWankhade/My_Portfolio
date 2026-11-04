@@ -84,8 +84,8 @@ export default function AboutPage() {
                   </div>
                 </div>
                 <p className="text-sm text-white/80 leading-relaxed mb-6 max-w-sm">
-                  {about.location} · AI/ML &amp; full-stack engineer building
-                  mesh, vision, and security systems.
+                  {about.location} · AI/ML, software engineering &amp; distributed
+                  systems — building mesh, vision, and security systems.
                 </p>
                 <div className="space-y-3">
                   <a

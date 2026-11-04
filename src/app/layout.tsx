@@ -31,10 +31,10 @@ const cormorant = Cormorant_Garamond({
 export const metadata: Metadata = {
   title: {
     template: "%s · Pratham Wankhade",
-    default: "Pratham Wankhade — AI/ML & Full-Stack Engineer",
+    default: "Pratham Wankhade — Information Technology Graduate",
   },
   description:
-    "AI/ML & full-stack engineer. Mesh messaging, computer vision, security, and offline-first systems. Colorful editorial portfolio of original, verifiable work.",
+    "Information Technology graduate. AI/ML, software engineering, and distributed systems — mesh messaging, computer vision, security, and offline-first work, documented with architecture, trade-offs, and limits.",
   metadataBase: new URL("https://portfolio.prathamwankhade.dev"),
   alternates: {
     canonical: "/",
@@ -44,23 +44,23 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "/",
     siteName: "Pratham Wankhade",
-    title: "Pratham Wankhade — AI/ML & Full-Stack Engineer",
+    title: "Pratham Wankhade — Information Technology Graduate",
     description:
-      "AI/ML & full-stack engineer. Mesh messaging, computer vision, security, and offline-first systems.",
+      "Information Technology graduate. AI/ML, software engineering, and distributed systems — mesh messaging, computer vision, security, and offline-first work.",
     images: [
       {
         url: "/opengraph-image.png",
         width: 1200,
         height: 630,
-        alt: "Pratham Wankhade — AI/ML & Full-Stack Engineer",
+        alt: "Pratham Wankhade — Information Technology Graduate",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Pratham Wankhade — AI/ML & Full-Stack Engineer",
+    title: "Pratham Wankhade — Information Technology Graduate",
     description:
-      "AI/ML & full-stack engineer. Mesh messaging, computer vision, security, and offline-first systems.",
+      "Information Technology graduate. AI/ML, software engineering, and distributed systems — mesh messaging, computer vision, security, and offline-first work.",
     images: ["/opengraph-image.png"],
   },
   robots: "index, follow",

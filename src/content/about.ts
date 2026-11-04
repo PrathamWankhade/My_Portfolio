@@ -10,7 +10,7 @@ export type Interest = {
 
 export const about = {
   name: "Pratham Wankhade",
-  role: "AI/ML & Full-Stack Engineer",
+  role: "Information Technology Graduate",
   location: "Amravati, Maharashtra, India",
   email: "prathamwankhade2004@gmail.com",
   phone: "+91 77578 48083",
