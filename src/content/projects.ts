@@ -92,7 +92,7 @@ export const projects: Project[] = [
     cvHighlights: [
       "Custom BLE mesh protocol with multi-hop routing, automatic topology discovery, and route recovery",
       "End-to-end encryption with AES-256-GCM; Ed25519 identity keys with X25519 derived for session agreement",
-      "Offline outbox queues messages for out-of-range peers and sends them once a path exists; CI enforces zero flutter analyze issues",
+      "Offline outbox queues messages for out-of-range peers and sends them once a path exists",
     ],
     outcomes: [
       "Two devices can converse with no internet, no server, and no account",

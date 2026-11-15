@@ -121,6 +121,12 @@ export const skillGroups: SkillGroup[] = [
     usedIn: ["faceSnap", "aipfl-ids", "phishguard"],
   },
   {
+    name: "Backend & APIs",
+    skills: ["FastAPI", "Flask", "Node.js"],
+    level: "proficient",
+    usedIn: ["faceSnap", "phishguard", "aipfl-ids"],
+  },
+  {
     name: "Frontend",
     skills: ["React", "Next.js", "Tailwind CSS", "TypeScript"],
     level: "proficient",
@@ -133,19 +139,13 @@ export const skillGroups: SkillGroup[] = [
     usedIn: ["onebit"],
   },
   {
-    name: "Backend",
-    skills: ["FastAPI", "Flask", "Node.js"],
-    level: "proficient",
-    usedIn: ["faceSnap", "phishguard", "aipfl-ids"],
-  },
-  {
-    name: "Databases",
+    name: "Databases & vector search",
     skills: ["SQLite", "Qdrant", "Firebase", "Drift (SQLite)"],
     level: "working",
     usedIn: ["onebit", "faceSnap", "phishguard"],
   },
   {
-    name: "Infrastructure",
+    name: "Cloud & DevOps",
     skills: ["Docker", "Linux", "Git", "AWS"],
     level: "working",
     usedIn: ["aipfl-ids", "phishguard"],
@@ -169,7 +169,7 @@ export const achievements: Achievement[] = [
     kind: "award",
     date: "2025",
     description:
-      "Among the top 20 national teams for a dark-web surveillance prototype: Python automation over Tor to collect and triage posts, with NLP/NER prioritization and real-time dashboards for analysis. Resume-reported; no public repository.",
+      "Among the top 20 national teams for a dark-web surveillance prototype: Python automation over Tor to collect and triage posts, with NLP/NER prioritization and real-time dashboards for analysis.",
   },
   {
     title: "Geodata Processing Using Python & ML",
@@ -200,7 +200,7 @@ export const talks: Talk[] = [
     event: "Campus Tech Symposium",
     date: "2025",
     description:
-      "Presented research on AIPFL-IDS — federated learning applied to network intrusion detection. Presented, never published.",
+      "Presented research on AIPFL-IDS — federated learning applied to network intrusion detection.",
   },
 ];
 

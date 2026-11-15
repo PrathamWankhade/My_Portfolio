@@ -66,6 +66,15 @@ export default function CvPage() {
     }))
     .filter((g) => g.skills.length > 0);
 
+  // CV-only order: lead with the strongest applied-ML evidence. The site
+  // keeps its own narrative order; this is a presentation choice.
+  const cvProjectOrder = ["phishguard", "faceSnap", "aipfl-ids", "onebit"];
+  const rank = (slug: string) => {
+    const i = cvProjectOrder.indexOf(slug);
+    return i === -1 ? cvProjectOrder.length : i;
+  };
+  const cvProjects = [...projects].sort((a, b) => rank(a.slug) - rank(b.slug));
+
   return (
     <div className="flex flex-col flex-1">
       <section className="pt-28 pb-14 sm:pt-32 print:p-0">
@@ -193,7 +202,7 @@ export default function CvPage() {
             <section className="mb-5 print:mb-2.5">
               <SectionTitle>Projects</SectionTitle>
               <div className="space-y-3.5 print:space-y-2.5">
-                {projects.map((project) => (
+                {cvProjects.map((project) => (
                   <div key={project.slug} className="cv-item">
                     <div className="flex flex-wrap items-baseline justify-between gap-x-3">
                       <h3 className="font-semibold text-ink text-[13px] print:text-[12.5px]">
@@ -251,7 +260,6 @@ export default function CvPage() {
                       {c.url ? <CvLink href={c.url}>{c.title}</CvLink> : c.title}
                     </span>{" "}
                     — {c.organization}
-                    {c.description ? `. ${c.description}` : ""}
                   </li>
                 ))}
               </ul>
@@ -280,7 +288,6 @@ export default function CvPage() {
                 {talks.map((t) => (
                   <li key={t.title} className="text-[13px] print:text-[12.5px] text-ink-secondary leading-snug">
                     <span className="font-medium text-ink">{t.title}</span> — {t.event} ({t.date}).
-                    Presented, not published.
                   </li>
                 ))}
               </ul>
