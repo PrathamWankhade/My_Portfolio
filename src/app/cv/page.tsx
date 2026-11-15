@@ -16,6 +16,37 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** Turn a display value like "github.com/PrathamWankhade" into a real URL. */
+function asUrl(value: string) {
+  return /^[a-z][a-z0-9+.-]*:/i.test(value) ? value : `https://${value}`;
+}
+
+/**
+ * Links stay clickable on screen and in the saved PDF (Chromium keeps the
+ * anchor as a link annotation). The underline is the print affordance — a
+ * bare coloured word would not read as a link on paper.
+ */
+function CvLink({
+  href,
+  children,
+  className = "",
+}: {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`underline decoration-1 underline-offset-2 decoration-ink-secondary/50 hover:text-cobalt hover:decoration-cobalt transition-colors print:decoration-ink-secondary/70 ${className}`}
+    >
+      {children}
+    </a>
+  );
+}
+
 export default function CvPage() {
   const work = experience.filter((e) => e.type === "work");
   const education = experience.filter((e) => e.type === "education");
@@ -66,9 +97,17 @@ export default function CvPage() {
                 {profile.specialties}
               </p>
               <p className="mt-2 text-[13px] print:text-[12.5px] text-ink-secondary leading-relaxed print:leading-snug">
-                {profile.location} · {profile.email} · {profile.phone}
+                {profile.location} ·{" "}
+                <CvLink href={`mailto:${profile.email}`}>{profile.email}</CvLink>{" "}
+                ·{" "}
+                <CvLink href={`tel:${profile.phone.replace(/[^\d+]/g, "")}`}>
+                  {profile.phone}
+                </CvLink>
                 <br />
-                {profile.github} · {profile.linkedin} · {profile.site}
+                <CvLink href={asUrl(profile.github)}>{profile.github}</CvLink>{" "}
+                ·{" "}
+                <CvLink href={asUrl(profile.linkedin)}>{profile.linkedin}</CvLink>{" "}
+                · <CvLink href={asUrl(profile.site)}>{profile.site}</CvLink>
               </p>
             </header>
 
@@ -160,7 +199,11 @@ export default function CvPage() {
                         <span className="font-mono text-[11px] text-muted font-normal"> — {project.status}</span>
                       </h3>
                       <span className="text-[11px] text-ink-secondary font-mono break-all">
-                        {project.repo?.replace(/^https?:\/\//, "")}
+                        {project.repo && (
+                          <CvLink href={project.repo}>
+                            {project.repo.replace(/^https?:\/\//, "")}
+                          </CvLink>
+                        )}
                       </span>
                     </div>
                     <p className="text-[11px] text-cobalt font-medium">
@@ -202,7 +245,10 @@ export default function CvPage() {
               <ul className="cv-ul space-y-1">
                 {certifications.map((c) => (
                   <li key={c.title} className="text-[13px] print:text-[12.5px] text-ink-secondary leading-snug">
-                    <span className="font-medium text-ink">{c.title}</span> — {c.organization}
+                    <span className="font-medium text-ink">
+                      {c.url ? <CvLink href={c.url}>{c.title}</CvLink> : c.title}
+                    </span>{" "}
+                    — {c.organization}
                     {c.description ? `. ${c.description}` : ""}
                   </li>
                 ))}
@@ -215,7 +261,10 @@ export default function CvPage() {
               <ul className="cv-ul space-y-1">
                 {awards.map((a) => (
                   <li key={a.title} className="text-[13px] print:text-[12.5px] text-ink-secondary leading-snug">
-                    <span className="font-medium text-ink">{a.title}</span> — {a.organization}
+                    <span className="font-medium text-ink">
+                      {a.url ? <CvLink href={a.url}>{a.title}</CvLink> : a.title}
+                    </span>{" "}
+                    — {a.organization}
                     {a.date ? ` (${a.date})` : ""}. {a.description}
                   </li>
                 ))}
