@@ -276,6 +276,29 @@ a {
 /* Print / Save-as-PDF — used by the CV page                           */
 /* ------------------------------------------------------------------ */
 
+/* CV body copy is justified; the centred header above it is not. */
+.cv-body p,
+.cv-body li {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: none;
+}
+
+/* At phone width justification opens rivers; keep it readable there. */
+@media screen and (max-width: 640px) {
+  .cv-body p,
+  .cv-body li {
+    text-align: left;
+  }
+}
+
+@media screen {
+  /* Preview the sheet at true A4 proportions, not just a wide card. */
+  .cv-sheet {
+    min-height: 297mm;
+  }
+}
+
 /* Real list markers (text painting, so they print without backgrounds) */
 .cv-ul {
   list-style: disc;

@@ -69,7 +69,7 @@ export default function CvPage() {
   return (
     <div className="flex flex-col flex-1">
       <section className="pt-28 pb-14 sm:pt-32 print:p-0">
-        <div className="mx-auto max-w-3xl px-6">
+        <div className="mx-auto w-full max-w-[calc(210mm+3rem)] px-6 print:max-w-none print:p-0">
           {/* Screen-only action bar */}
           <div className="no-print flex flex-wrap items-center justify-between gap-4 mb-8">
             <div>
@@ -86,17 +86,17 @@ export default function CvPage() {
           </div>
 
           {/* The sheet */}
-          <article className="cv-sheet rounded-xl border border-border bg-surface p-7 sm:p-10 shadow-card">
-            {/* Header */}
-            <header className="mb-5 print:mb-4">
+          <article className="cv-sheet mx-auto w-full max-w-[210mm] rounded-xl border border-border bg-surface px-6 py-8 sm:px-[10mm] sm:py-[12mm] shadow-card">
+            {/* Header — centred like a printed A4 CV */}
+            <header className="mb-5 print:mb-4 text-center">
               <h1 className="editor-text text-3xl sm:text-4xl print:text-2xl font-semibold tracking-tight text-ink leading-tight">
                 {profile.name}
               </h1>
               <p className="cv-role text-coral font-medium mt-1">{profile.role}</p>
-              <p className="text-[12px] print:text-[11.5px] text-ink-secondary mt-0.5">
+              <p className="text-[12px] print:text-[11.5px] text-ink-secondary mt-1">
                 {profile.specialties}
               </p>
-              <p className="mt-2 text-[13px] print:text-[12.5px] text-ink-secondary leading-relaxed print:leading-snug">
+              <p className="mt-3 text-[13px] print:text-[12.5px] text-ink-secondary leading-relaxed print:leading-snug">
                 {profile.location} ·{" "}
                 <CvLink href={`mailto:${profile.email}`}>{profile.email}</CvLink>{" "}
                 ·{" "}
@@ -110,6 +110,8 @@ export default function CvPage() {
                 · <CvLink href={asUrl(profile.site)}>{profile.site}</CvLink>
               </p>
             </header>
+
+            <div className="cv-body">
 
             {/* Summary */}
             <section className="mb-5 print:mb-2.5">
@@ -283,6 +285,7 @@ export default function CvPage() {
                 ))}
               </ul>
             </section>
+            </div>
           </article>
         </div>
       </section>
