@@ -1,7 +1,9 @@
 /**
  * Professional experience, education, skills, and achievements.
  * Source of truth: resumes, official TGPCET marksheet + provisional degree
- * certificate, and the public GitHub repositories.
+ * certificate, the public GitHub repositories, and the certificate PDFs in
+ * "CERTIFICATIONS AND ACHIEVEMENTS" (AWS/Credly, ISRO-IIRS, ICAIA 2025,
+ * AIDCon-2025, CyberHack 2025).
  */
 
 export type ExperienceEntry = {
@@ -25,10 +27,10 @@ export const experience: ExperienceEntry[] = [
     location: "Nagpur, Maharashtra, India",
     period: "Jul 2025 – Oct 2025",
     description:
-      "Built NLP-based resume parsing and semantic matching pipelines (Python, spaCy) for ATS optimization.",
+      "Built NLP-based resume parsing and semantic job-matching pipelines (Python, spaCy) for ATS optimisation.",
     highlights: [
-      "Engineered structured data pipelines for resume-to-job matching",
-      "Tuned preprocessing and inference workflows for responsive results",
+      "Engineered structured extraction so resume-to-job matching compares meaning, not keywords — the gap keyword-only ATS filters leave",
+      "Tuned preprocessing and inference workflows so matches return inside a responsive request budget",
     ],
     skills: ["Python", "spaCy", "NLP"],
   },
@@ -39,9 +41,9 @@ export const experience: ExperienceEntry[] = [
     location: "Nagpur, Maharashtra, India",
     period: "Dec 2024 – Jan 2025",
     description:
-      "Built an AI product-recommendation chatbot for an e-commerce website, recommending products from user purchase behavior.",
+      "Built an AI product-recommendation chatbot for an e-commerce website, ranking products from user purchase behaviour rather than static catalogue order.",
     highlights: [
-      "Tuned recommendation workflows for relevance and response time",
+      "Tuned recommendation ranking for relevance and response time",
     ],
     skills: ["Python", "Machine Learning"],
   },
@@ -54,7 +56,7 @@ export const experience: ExperienceEntry[] = [
     description:
       "Elected class representative and project team lead — the liaison between faculty and 75+ students.",
     highlights: [
-      "Led technical teams on AI project development",
+      "Led technical teams across 4 projects — FaceSnap (published, Springer), AIPFL-IDS, PhishGuard, and OneBit",
       "Organized workshops and peer initiatives on campus",
     ],
   },
@@ -165,25 +167,45 @@ export type Achievement = {
 export const achievements: Achievement[] = [
   {
     title: "CyberHack 2025 — Top 20 National Finalist",
-    organization: "Selected under the Cyber Police Division",
+    organization: "Nagpur City Police · Advantage Vidharbha",
     kind: "award",
     date: "2025",
     description:
-      "Among the top 20 national teams for a dark-web surveillance prototype: Python automation over Tor to collect and triage posts, with NLP/NER prioritization and real-time dashboards for analysis.",
+      "Among the top 20 national teams for a dark-web surveillance prototype: Python automation over Tor to collect and triage posts, with NLP/NER prioritization and real-time dashboards for analysis. Recognised with a framed Token of Appreciation.",
   },
   {
-    title: "Geodata Processing Using Python & ML",
-    organization: "Indian Space Research Organisation (ISRO)",
-    kind: "certification",
-    description:
-      "Certified in geospatial data processing with Python and machine learning for remote-sensing and Earth-observation workflows.",
-  },
-  {
-    title: "AWS Academy Graduate — Machine Learning Foundations",
+    title: "AWS Academy Graduate — AWS Academy Machine Learning Foundations",
     organization: "AWS Academy",
     kind: "certification",
+    date: "February 2024",
+    url: "https://www.credly.com/go/uvgqRlXH",
     description:
-      "Completed the AWS Academy machine learning foundations curriculum covering core ML concepts and AWS ML services.",
+      "Completed the 20-hour AWS Academy Machine Learning Foundations curriculum covering core ML concepts and AWS ML services. Badge verifiable on Credly.",
+  },
+  {
+    title: "Geodata Processing Using Python and Machine Learning",
+    organization: "ISRO / IIRS, Dehradun",
+    kind: "certification",
+    date: "February 2025",
+    url: "https://isrolms.iirs.gov.in/mod/customcert/verify_certificate.php?contextid=1049408",
+    description:
+      "Certificate of participation for the 09-hour IIRS online course run 17–28 February 2025 — geospatial data processing with Python and machine learning for remote-sensing and Earth-observation workflows. Verifiable on the IIRS LMS (certificate UID qGRAJlD31d).",
+  },
+  {
+    title: "FaceSnap presented at ICAIA 2025",
+    organization: "Maharaja Surajmal Institute of Technology, Delhi",
+    kind: "certification",
+    date: "March 2025",
+    description:
+      "Certificate of participation in the 3rd International Conference on Artificial Intelligence and Applications, held 26–27 March 2025, where the FaceSnap work was presented — the chapter later published in the Springer ICAIA 2025 proceedings (pp. 287–302).",
+  },
+  {
+    title: "AIDCon-2025 participation",
+    organization: "St. Vincent Pallotti College of Engineering & Technology, Nagpur",
+    kind: "certification",
+    date: "December 2025",
+    description:
+      "Certificate for actively participating in the International Conference on AI-Driven Engineering & Technology (AIDCon-2025), held 12–13 December 2025.",
   },
 ];
 

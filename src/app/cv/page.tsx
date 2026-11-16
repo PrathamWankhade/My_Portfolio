@@ -1,11 +1,12 @@
 import { experience, skillGroups, achievements, talks, profile } from "@/content/experience";
 import { projects } from "@/content/projects";
+import { publications, authorPositionLabel } from "@/content/publications";
 import { PrintButton } from "@/components/print-button";
 
 export const metadata = {
   title: "CV",
   description:
-    "Curriculum vitae for Pratham Wankhade — Information Technology graduate. AI/ML, software engineering, and distributed systems: education, experience, projects, skills, certifications, and presentations.",
+    "Curriculum vitae for Pratham Wankhade — Information Technology graduate. AI/ML, software engineering, and distributed systems: education, experience, projects, publication, skills, certifications, and presentations.",
 };
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
@@ -123,7 +124,7 @@ export default function CvPage() {
             <div className="cv-body">
 
             {/* Summary */}
-            <section className="mb-5 print:mb-2.5">
+            <section className="mb-5 print:mb-1.5">
               <SectionTitle>Profile</SectionTitle>
               <p className="cv-p text-[13px] print:text-[12.5px] text-ink-secondary leading-relaxed print:leading-snug">
                 {profile.bio}
@@ -131,7 +132,7 @@ export default function CvPage() {
             </section>
 
             {/* Education */}
-            <section className="mb-5 print:mb-2.5">
+            <section className="mb-5 print:mb-1.5">
               <SectionTitle>Education</SectionTitle>
               <div className="space-y-3 print:space-y-2">
                 {education.map((entry) => (
@@ -167,7 +168,7 @@ export default function CvPage() {
             </section>
 
             {/* Experience */}
-            <section className="mb-5 print:mb-2.5">
+            <section className="mb-5 print:mb-1.5">
               <SectionTitle>Experience</SectionTitle>
               <div className="space-y-3 print:space-y-2">
                 {work.map((entry) => (
@@ -199,9 +200,9 @@ export default function CvPage() {
             </section>
 
             {/* Projects */}
-            <section className="mb-5 print:mb-2.5">
+            <section className="mb-5 print:mb-1.5">
               <SectionTitle>Projects</SectionTitle>
-              <div className="space-y-3.5 print:space-y-2.5">
+              <div className="space-y-3.5 print:space-y-2">
                 {cvProjects.map((project) => (
                   <div key={project.slug} className="cv-item">
                     <div className="flex flex-wrap items-baseline justify-between gap-x-3">
@@ -237,8 +238,26 @@ export default function CvPage() {
               </div>
             </section>
 
+            {/* Publication */}
+            <section className="mb-5 print:mb-1.5">
+              <SectionTitle>Publication</SectionTitle>
+              <ul className="cv-ul space-y-1">
+                {publications.map((p) => (
+                  <li key={p.doi} className="text-[13px] print:text-[12.5px] text-ink-secondary leading-snug">
+                    <span className="font-medium text-ink">
+                      <CvLink href={p.url}>{p.title}</CvLink>
+                    </span>{" "}
+                    — Springer, ICAIA 2025, pp. {p.pages}. Co-author (
+                    {authorPositionLabel(p.authorPosition, p.authors.length)}
+                    ); {p.reportedResult.value} accuracy in optimal conditions.{" "}
+                    <CvLink href={p.scholar}>Google Scholar</CvLink>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
             {/* Skills */}
-            <section className="mb-5 print:mb-2.5">
+            <section className="mb-5 print:mb-1.5">
               <SectionTitle>Technical skills</SectionTitle>
               <div className="space-y-1">
                 {skillLines.map((group) => (
@@ -251,7 +270,7 @@ export default function CvPage() {
             </section>
 
             {/* Certifications */}
-            <section className="mb-5 print:mb-2.5">
+            <section className="mb-5 print:mb-1.5">
               <SectionTitle>Certifications</SectionTitle>
               <ul className="cv-ul space-y-1">
                 {certifications.map((c) => (
@@ -266,7 +285,7 @@ export default function CvPage() {
             </section>
 
             {/* Awards */}
-            <section className="mb-5 print:mb-2.5">
+            <section className="mb-5 print:mb-1.5">
               <SectionTitle>Awards & recognition</SectionTitle>
               <ul className="cv-ul space-y-1">
                 {awards.map((a) => (

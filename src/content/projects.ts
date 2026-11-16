@@ -24,6 +24,11 @@ export type Project = {
     value: string;
     condition: string;
   }[];
+  /** Set when the work has a peer-reviewed record; links to the publisher page. */
+  publication?: {
+    label: string;
+    url: string;
+  };
   challenges: string[];
   architecture?: string;
   implementation: string;
@@ -77,6 +82,12 @@ export const projects: Project[] = [
         condition:
           "with X25519 key agreement derived from an Ed25519 identity key (repo-documented)",
       },
+      {
+        label: "BLE link discipline",
+        value: "MTU 23 floor",
+        condition:
+          "MTU negotiation falls back to 23 bytes and no write exceeds MTU−3; larger payloads split and reassemble (unit-tested)",
+      },
     ],
     challenges: [
       "Multi-hop mesh routing with automatic topology discovery and route recovery",
@@ -90,9 +101,9 @@ export const projects: Project[] = [
     resumeLine:
       "Decentralized BLE messenger (Flutter/Dart): multi-hop mesh routing, AES-256-GCM via X25519, zero servers",
     cvHighlights: [
-      "Custom BLE mesh protocol with multi-hop routing, automatic topology discovery, and route recovery",
-      "End-to-end encryption with AES-256-GCM; Ed25519 identity keys with X25519 derived for session agreement",
-      "Offline outbox queues messages for out-of-range peers and sends them once a path exists",
+      "Custom BLE mesh with multi-hop routing, topology discovery, and route recovery; MTU negotiation falls back to 23 bytes, writes capped at MTU−3",
+      "AES-256-GCM sessions via X25519 derived from Ed25519 identity keys — 0 servers, 0 accounts, 0 phone numbers",
+      "Hardware-verified on a Redmi Note 8 (Android 11, API 30): GATT server, advertising, and foreground-service bring-up logged; multi-device rows need a second handset",
     ],
     outcomes: [
       "Two devices can converse with no internet, no server, and no account",
@@ -128,7 +139,17 @@ export const projects: Project[] = [
     status: "Completed",
     repo: "https://github.com/PrathamWankhade/FaceSnap",
     featured: true,
+    publication: {
+      label: "Springer chapter, ICAIA 2025, pp. 287–302",
+      url: "https://link.springer.com/chapter/10.1007/978-981-95-0493-0_22",
+    },
     metrics: [
+      {
+        label: "Paper-reported accuracy",
+        value: ">95%",
+        condition:
+          "reported in the Springer chapter for optimal conditions — a paper-level claim, not a benchmark of this deployment",
+      },
       {
         label: "Embedding match",
         value: "512-dim ArcFace",
@@ -139,7 +160,7 @@ export const projects: Project[] = [
         label: "Liveness",
         value: "rPPG + blink + motion",
         condition:
-          "multi-frame analysis against photo and video-replay attacks (repo-documented)",
+          "~50 frames at ~10 FPS (≈5 s burst) checked against photo and video-replay attacks (repo-documented)",
       },
     ],
     challenges: [
@@ -154,9 +175,9 @@ export const projects: Project[] = [
     resumeLine:
       "Face-verified attendance (Next.js + FastAPI): ArcFace embeddings in Qdrant with liveness checks",
     cvHighlights: [
-      "512-dim InsightFace ArcFace embeddings in Qdrant with cosine-distance matching (0.35 threshold, a choice not a calibrated probability)",
-      "Liveness analysis (rPPG, blink, motion) across multiple frames against photo and video replay",
-      "Detection, recognition, and attendance kept as separate states; unknown faces go to a review queue, never the register",
+      ">95% recognition accuracy in the paper's optimal conditions; deployment still requires a 0.35 cosine match plus liveness, so detection alone cannot write a record",
+      "512-dim InsightFace ArcFace embeddings in Qdrant; ~50 frames at ~10 FPS (≈5 s) per verification; four capture modes write one attendance schema",
+      "Unknown faces go to a review queue, never the register; detection, recognition, and attendance stay three separate states",
     ],
     outcomes: [
       "Only verified, live matches become attendance records — unknowns wait in a review queue",
@@ -197,6 +218,12 @@ export const projects: Project[] = [
         condition:
           "historical benchmark reported in the repo — reproduce with the released model before citing; 10 classes, balanced 50K/class",
       },
+      {
+        label: "Benchmark spread",
+        value: "8.57 pts",
+        condition:
+          "79.92% vs 71.35% across the two datasets under the same 10-class DNN and FedAvg setup — a data-difficulty gap, not a tuning win",
+      },
     ],
     challenges: [
       "Handling extreme byte-rate features (up to 1e+261) with percentile-based clipping",
@@ -210,9 +237,9 @@ export const projects: Project[] = [
     resumeLine:
       "Federated IDS prototype (TensorFlow): FedAvg across 10 simulated clients, two IoT benchmark datasets",
     cvHighlights: [
-      "FedAvg across 10 simulated clients on CICIoT2023 and NF-ToN-IoT-V2, with per-dataset scalers, encoders, and models",
-      "Single-process simulation documented as such: no privacy guarantees for independent clients, secure aggregation, or differential privacy",
-      "Percentile clipping for extreme byte-rate features and 200K-row streaming batches over 45M+ records",
+      "FedAvg over 10 simulated clients × 30 rounds × 5 local epochs: 71.35% (CICIoT2023) vs 79.92% (NF-ToN-IoT-V2) — an 8.6-point spread on the same 10-class DNN",
+      "45.0M raw CICIoT2023 records (34 labels → 10 classes) reduced to 436,321 balanced samples; NF-ToN-IoT-V2 ~13M → 377,339",
+      "Centralized RandomForest/LogReg baseline on the identical split quantifies what federation costs; single-process simulation, no secure aggregation or differential privacy",
     ],
     outcomes: [
       "Two datasets train and serve through one API with per-dataset models",
@@ -253,7 +280,13 @@ export const projects: Project[] = [
         label: "Test accuracy",
         value: "98.25%",
         condition:
-          "on a 39,148-mail stratified holdout (model phase4); CV F1-macro 98.14% — measured on this holdout, not unseen campaigns",
+          "on a 39,148-mail stratified holdout (model phase4); CV F1-macro 98.14% ± 0.0006 — measured on this holdout, not unseen campaigns",
+      },
+      {
+        label: "Majority-class baseline",
+        value: "54.10%",
+        condition:
+          "21,178 of the 39,148 holdout mails are legitimate, so always-guessing-majority scores 54.10% — the model is +44.2 points over that floor",
       },
       {
         label: "Phishing precision / recall",
@@ -274,9 +307,9 @@ export const projects: Project[] = [
     resumeLine:
       "PhishGuard (FastAPI): evidence-tagged ensemble, 98.25% accuracy on a 39,148-mail holdout",
     cvHighlights: [
-      "TF-IDF + soft-voting ensemble; 98.25% accuracy on a 39,148-mail stratified holdout (CV F1-macro 98.14%)",
-      "Risk = P(phishing) × 100 + bounded URL, sender, and header evidence — probability and policy score stay separate fields",
-      "Every verdict links to inspectable evidence; deterministic signals survive, and failures surface as explicit errors, never silent heuristics",
+      "98.25% accuracy against a 54.10% majority-class baseline on the same 39,148-mail holdout (195,740 mails; CV F1-macro 98.14% ± 0.0006)",
+      "Phishing precision/recall/F1 97.83 / 98.38 / 98.10%; false-positive 1.85%, false-negative 1.62%; log loss 0.086, Brier 0.018",
+      "Policy at 75/45 thresholds: 99.47% precision at 93.29% recall (FPR 0.42%) — recall traded for precision, measured not asserted",
     ],
     outcomes: [
       "Every verdict links to inspectable evidence; risk and probability stay separate fields",

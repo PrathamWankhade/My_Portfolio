@@ -217,6 +217,19 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
                 </Card>
               ))}
             </div>
+            {project.publication && (
+              <p className="mt-5 text-sm text-ink-secondary">
+                Peer-reviewed record:{" "}
+                <Link
+                  href={project.publication.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-cobalt underline decoration-1 underline-offset-2 hover:decoration-cobalt/60 transition-colors"
+                >
+                  {project.publication.label}
+                </Link>
+              </p>
+            )}
           </Reveal>
         </div>
       </section>
