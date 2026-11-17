@@ -22,6 +22,13 @@ export function ContactForm() {
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [fallback, setFallback] = useState(false);
+  // Kept so the mailto fallback can carry the typed message if the API fails.
+  const [draft, setDraft] = useState<{
+    name: string;
+    email: string;
+    subject: string;
+    message: string;
+  } | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -42,6 +49,12 @@ export function ContactForm() {
     setError(null);
     setFieldErrors({});
     setFallback(false);
+    setDraft({
+      name: payload.name,
+      email: payload.email,
+      subject: payload.subject,
+      message: payload.message,
+    });
 
     const local: FieldErrors = {};
     for (const key of FIELDS) {
@@ -91,8 +104,14 @@ export function ContactForm() {
   };
 
   const mailtoHref = (() => {
-    const subject = "Hello Pratham";
-    return `mailto:${RECIPIENT}?subject=${encodeURIComponent(subject)}`;
+    const subject = draft?.subject.trim() || "Hello Pratham";
+    const signature = draft
+      ? `\n\n— ${draft.name}${draft.email ? ` (${draft.email})` : ""}`
+      : "";
+    const body = draft ? `${draft.message}${signature}` : "";
+    const params = new URLSearchParams({ subject });
+    if (body) params.set("body", body);
+    return `mailto:${RECIPIENT}?${params.toString()}`;
   })();
 
   return (
