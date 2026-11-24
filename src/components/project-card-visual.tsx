@@ -1,11 +1,10 @@
 import Image from "next/image";
-import { ProjectIllustration } from "@/components/project-illustration";
+import { ProjectCover } from "@/components/project-cover";
 import type { Project } from "@/content/projects";
 
 /**
  * Card artwork. When a project has an `image`, use it edge-to-edge; otherwise
- * fall back to the project's architecture diagram, cropped to fill the card.
- * Either way the parent must be `relative` with a fixed height.
+ * show a bold, text-free cover. The parent must be `relative` with a height.
  */
 export function ProjectCardVisual({
   project,
@@ -26,7 +25,5 @@ export function ProjectCardVisual({
       />
     );
   }
-  return (
-    <ProjectIllustration project={project} className={className} />
-  );
+  return <ProjectCover project={project} className={className} />;
 }
