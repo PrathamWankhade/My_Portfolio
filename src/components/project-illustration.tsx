@@ -134,7 +134,7 @@ function Arrow({
 /* OneBit — multi-hop BLE mesh, end-to-end encrypted */
 function OneBitDiagram({ hex }: { hex: string }) {
   const phone = (x: number, y: number, name: string, active: boolean) => (
-    <g key={name}>
+    <g key={`${x}-${y}-${name}`}>
       <rect
         x={x - 17}
         y={y - 28}
