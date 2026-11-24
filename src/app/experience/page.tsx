@@ -10,6 +10,13 @@ export const metadata = {
 export default function ExperiencePage() {
   const work = experience.filter((e) => e.type === "work");
   const edu = experience.filter((e) => e.type === "education");
+  // Talks use event/date; the shared timeline renders organization/period.
+  const talkEntries: TimelineEntry[] = talks.map((t) => ({
+    title: t.title,
+    period: t.date,
+    organization: t.event,
+    description: t.description,
+  }));
 
   return (
     <div className="flex flex-col flex-1">
@@ -38,7 +45,7 @@ export default function ExperiencePage() {
       {talks.length > 0 && (
         <section className="py-14 sm:py-16">
           <div className="mx-auto max-w-5xl px-6">
-            <TimelineSection title="Presentations" color="lavender" entries={talks} />
+            <TimelineSection title="Presentations" color="lavender" entries={talkEntries} />
           </div>
         </section>
       )}
