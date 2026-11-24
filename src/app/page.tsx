@@ -5,12 +5,12 @@ import { Card, CardDescription, CardFooter, CardTitle } from "@/components/ui/ca
 import { Chip } from "@/components/ui/chip";
 import { ProjectIllustration } from "@/components/project-illustration";
 import { Reveal } from "@/components/reveal";
-import { getFeaturedProjects, type Project } from "@/content/projects";
+import { getFeaturedProjects, projects, type Project } from "@/content/projects";
 
 export const metadata = {
   title: "Home",
   description:
-    "Pratham Wankhade — Information Technology graduate and technology-focused builder. AI, computer vision, security, and offline-first systems.",
+    "Pratham Wankhade — Information Technology graduate working across AI/ML, software engineering, and distributed systems. Case studies in computer vision, security, and offline-first mobile.",
 };
 
 export default function HomePage() {
@@ -75,10 +75,12 @@ function Hero() {
               <span className="text-coral italic">when the network doesn&apos;t.</span>
             </h1>
             <p className="text-lg text-ink-secondary leading-relaxed mb-9 max-w-xl rise rise-3">
-              I&apos;m Pratham Wankhade, an Information Technology graduate based in
-              Amravati, Maharashtra, India. I build mesh messaging, face-verified
-              attendance, federated intrusion detection, and phishing detection —
-              each documented with architecture, trade-offs, and honest limits.
+              I&apos;m Pratham Wankhade, an Information Technology graduate building
+              across AI/ML, software engineering, and distributed systems. I turn
+              complex problems into practical software — from NLP pipelines and
+              face verification to offline-first mobile systems — with clear
+              architecture, reliable implementation, and metrics that carry their
+              conditions.
             </p>
             <div className="flex flex-wrap items-center gap-4 rise rise-4">
               <Button asChild size="lg" variant="color" color="cobalt">
@@ -102,7 +104,7 @@ function Hero() {
                 </span>
                 <span className="flex items-center gap-1.5 font-mono text-[11px] text-emerald">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald" aria-hidden="true" />
-                  4 case studies
+                  {projects.length} case studies
                 </span>
               </div>
               <ul className="space-y-3">
@@ -181,6 +183,21 @@ function ProjectCard({ project }: { project: Project }) {
         <div className="p-6 flex-1">
           <CardTitle className="mb-2">{project.name}</CardTitle>
           <CardDescription>{project.tagline}</CardDescription>
+          {project.metrics?.[0] && (
+            <div className="mt-4 rounded-lg border border-border/70 bg-cream/60 px-4 py-3">
+              <p className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                <span className="font-mono text-sm font-semibold text-ink">
+                  {project.metrics[0].value}
+                </span>
+                <span className="text-xs text-ink-secondary">
+                  {project.metrics[0].label}
+                </span>
+              </p>
+              <p className="mt-1 text-[11px] leading-snug text-muted">
+                {project.metrics[0].condition}
+              </p>
+            </div>
+          )}
           <div className="mt-6 flex flex-wrap gap-2">
             {project.stack.slice(0, 4).map((skill) => (
               <Chip key={skill} variant="outline">{skill}</Chip>
@@ -217,10 +234,10 @@ function AboutSnippet() {
                 <span className="text-coral italic">after the opening credits</span>
               </h2>
               <p className="text-body text-ink-secondary leading-relaxed">
-                I&apos;m Pratham Wankhade — Information Technology graduate,
-                builder, and occasional writer. I document systems with the same
-                care I use to build them: architecture, trade-offs, and honest
-                limits.
+                I&apos;m Pratham Wankhade — an Information Technology graduate
+                working across AI/ML, software engineering, and distributed
+                systems. I document systems with the same care I use to build
+                them: architecture, trade-offs, and honest limits.
               </p>
             </div>
           </Reveal>
@@ -273,8 +290,8 @@ function AboutSnippet() {
 
 function SkillsPreview() {
   const allSkills = [
-    "Python", "TypeScript", "Dart", "Flutter", "React",
-    "Next.js", "FastAPI", "TensorFlow", "PyTorch", "Docker",
+    "Python", "TypeScript", "React", "Next.js", "FastAPI",
+    "Flutter", "TensorFlow", "scikit-learn", "SQLite", "Docker",
   ];
   return (
     <section className="py-16 sm:py-20 bg-cobalt-soft border-y border-cobalt/20">
@@ -287,6 +304,11 @@ function SkillsPreview() {
             View all skills <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </Reveal>
+        <p className="text-sm text-ink-secondary leading-relaxed max-w-[70ch] mb-8 -mt-2">
+          The tools used across the case studies — machine learning, full-stack
+          web, and offline-first mobile. The Skills page shows where each one was
+          applied.
+        </p>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {allSkills.map((skill, i) => (
             <Reveal key={skill} delay={i * 45}>
@@ -310,8 +332,10 @@ function ContactCTA() {
             Working on something?
           </h2>
           <p className="text-body text-ink-secondary leading-relaxed mb-8 max-w-lg mx-auto">
-            Recruiting, collaboration, or a question about any of the projects —
-            write directly. I reply thoughtfully when the question is specific.
+            Open to graduate engineering roles and collaborations across AI/ML,
+            full-stack development, and software engineering. If you&apos;re
+            hiring — or have a problem worth solving together — write to me.
+            Specific questions get thoughtful replies.
           </p>
           <Button asChild size="lg" variant="color" color="coral">
             <Link href="/contact">Get in touch</Link>
