@@ -3,7 +3,7 @@ import { ArrowRight, ScanFace, ShieldCheck, WifiOff } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardFooter, CardTitle } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
-import { ProjectIllustration } from "@/components/project-illustration";
+import { ProjectCardVisual } from "@/components/project-card-visual";
 import { Reveal } from "@/components/reveal";
 import { getFeaturedProjects, projects, type Project } from "@/content/projects";
 
@@ -176,11 +176,10 @@ function ProjectCard({ project }: { project: Project }) {
       className="group block h-full"
     >
       <Card variant="raised" className="hover:-translate-y-4 hover:border-cobalt hover:shadow-card overflow-hidden h-full flex flex-col">
-        <div className="relative h-48 overflow-hidden">
-          <ProjectIllustration project={project} className="h-full w-full transition-transform duration-700 group-hover:scale-105" />
-          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        <div className="relative h-44 overflow-hidden">
+          <ProjectCardVisual project={project} className="h-full w-full transition-transform duration-700 group-hover:scale-105" />
         </div>
-        <div className="p-6 flex-1">
+        <div className="p-5 flex-1">
           <CardTitle className="mb-2">{project.name}</CardTitle>
           <CardDescription>{project.tagline}</CardDescription>
           {project.metrics?.[0] && (
@@ -198,7 +197,7 @@ function ProjectCard({ project }: { project: Project }) {
               </p>
             </div>
           )}
-          <div className="mt-6 flex flex-wrap gap-2">
+          <div className="mt-4 flex flex-wrap gap-2">
             {project.stack.slice(0, 4).map((skill) => (
               <Chip key={skill} variant="outline">{skill}</Chip>
             ))}

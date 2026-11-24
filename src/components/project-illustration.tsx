@@ -306,9 +306,12 @@ const DIAGRAMS: Record<string, (p: { hex: string }) => React.ReactNode> = {
 export function ProjectIllustration({
   project,
   className,
+  fit = "meet",
 }: {
   project: DiagramProject;
   className?: string;
+  /** Cards crop to fill; the detail page keeps the whole diagram. */
+  fit?: "meet" | "slice";
 }) {
   const hex = colorHex[project.color];
   const Diagram = DIAGRAMS[project.slug];
@@ -319,7 +322,7 @@ export function ProjectIllustration({
         viewBox="0 0 420 260"
         role="presentation"
         className="h-full w-full"
-        preserveAspectRatio="xMidYMid meet"
+        preserveAspectRatio={`xMidYMid ${fit}`}
       >
         <defs>
           <pattern id={`grid-${project.slug}`} width="16" height="16" patternUnits="userSpaceOnUse">
