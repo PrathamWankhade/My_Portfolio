@@ -4,6 +4,8 @@ const RECIPIENT = process.env.CONTACT_TO_EMAIL || "prathamwankhade2004@gmail.com
 const SENDER =
   process.env.CONTACT_FROM_EMAIL || "Portfolio Contact <onboarding@resend.dev>";
 const API_KEY = process.env.RESEND_API_KEY;
+const REDIS_URL = process.env.UPSTASH_REDIS_REST_URL;
+const REDIS_TOKEN = process.env.UPSTASH_REDIS_REST_TOKEN;
 
 const LIMITS = { name: 100, email: 254, subject: 200, message: 5000 };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
@@ -18,16 +20,24 @@ const MAX_PER_WINDOW = 5;
 const hits = new Map<string, { count: number; resetAt: number }>();
 
 function clientIp(request: Request): string {
-  const forwarded = request.headers.get("x-forwarded-for");
+  // Vercel sets this header itself; the forwarded headers are only fallbacks,
+  // so a client-supplied value cannot be the primary rate-limit identity.
   return (
-    forwarded?.split(",")[0]?.trim() ||
+    request.headers.get("x-vercel-forwarded-for")?.split(",")[0]?.trim() ||
     request.headers.get("x-real-ip") ||
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
     "unknown"
   );
 }
 
 function isRateLimited(ip: string): boolean {
   const now = Date.now();
+  // Bound the map so stale entries cannot accumulate on a long-lived instance.
+  if (hits.size > 500) {
+    for (const [key, value] of hits) {
+      if (value.resetAt < now) hits.delete(key);
+    }
+  }
   const entry = hits.get(ip);
   if (!entry || entry.resetAt < now) {
     hits.set(ip, { count: 1, resetAt: now + WINDOW_MS });
@@ -35,6 +45,40 @@ function isRateLimited(ip: string): boolean {
   }
   entry.count += 1;
   return entry.count > MAX_PER_WINDOW;
+}
+
+/**
+ * Optional shared limiter backed by Upstash Redis REST. Without credentials it
+ * returns null and POST falls back to the per-instance map above. A sliding
+ * window keeps the limit consistent across serverless instances.
+ */
+async function isRateLimitedShared(ip: string): Promise<boolean | null> {
+  if (!REDIS_URL || !REDIS_TOKEN) return null;
+  const key = `contact:rl:${ip}`;
+  const now = Date.now();
+  const member = `${now}-${Math.random().toString(36).slice(2)}`;
+  try {
+    const response = await fetch(`${REDIS_URL}/pipeline`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${REDIS_TOKEN}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify([
+        ["ZREMRANGEBYSCORE", key, "0", String(now - WINDOW_MS)],
+        ["ZCARD", key],
+        ["ZADD", key, String(now), member],
+        ["EXPIRE", key, String(Math.ceil(WINDOW_MS / 1000))],
+      ]),
+      cache: "no-store",
+    });
+    if (!response.ok) return null;
+    const result = (await response.json()) as Array<{ result?: number | string }>;
+    const count = Number(result?.[1]?.result ?? 0);
+    return count >= MAX_PER_WINDOW;
+  } catch {
+    return null;
+  }
 }
 
 function escapeHtml(value: string): string {
@@ -53,11 +97,17 @@ function json(body: Record<string, unknown>, status: number) {
 }
 
 export async function POST(request: Request) {
-  if (isRateLimited(clientIp(request))) {
+  const ip = clientIp(request);
+  if ((await isRateLimitedShared(ip)) === true || isRateLimited(ip)) {
     return json(
       { error: "Too many messages from this connection. Please try again later." },
       429
     );
+  }
+
+  const contentType = request.headers.get("content-type") ?? "";
+  if (!contentType.toLowerCase().startsWith("application/json")) {
+    return json({ error: "Expected a JSON request." }, 415);
   }
 
   let payload: unknown;
@@ -71,7 +121,10 @@ export async function POST(request: Request) {
     return json({ error: "Could not read that request." }, 400);
   }
 
-  const body = (payload ?? {}) as Record<string, unknown>;
+  if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+    return json({ error: "Could not read that request." }, 400);
+  }
+  const body = payload as Record<string, unknown>;
   const field = (key: keyof typeof LIMITS) =>
     typeof body[key] === "string" ? (body[key] as string).trim() : "";
 

@@ -6,6 +6,10 @@ import { Button } from "@/components/ui/button";
 
 const RECIPIENT = "prathamwankhade2004@gmail.com";
 
+// Mirrors the server limits in src/app/api/contact/route.ts.
+const LIMITS = { name: 100, email: 254, subject: 200, message: 5000 };
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
 type Status = "idle" | "sending" | "success" | "error";
 
 type FieldErrors = Partial<Record<"name" | "email" | "subject" | "message", string>>;
@@ -59,7 +63,11 @@ export function ContactForm() {
     const local: FieldErrors = {};
     for (const key of FIELDS) {
       if (!payload[key]) local[key] = "This field is required.";
+      else if (payload[key].length > LIMITS[key])
+        local[key] = `Keep this under ${LIMITS[key].toLocaleString()} characters.`;
     }
+    if (payload.email && !EMAIL_RE.test(payload.email))
+      local.email = "That email address doesn't look right.";
     if (Object.keys(local).length > 0) {
       setFieldErrors(local);
       setStatus("error");
@@ -92,8 +100,8 @@ export function ContactForm() {
           "The message couldn't be sent right now. Please email me directly."
       );
       // Only offer the mailto fallback when the backend itself failed —
-      // validation errors are fixable in the form.
-      setFallback(response.status !== 400);
+      // validation and rate-limit errors are fixable without emailing.
+      setFallback(response.status !== 400 && response.status !== 429);
     } catch {
       setStatus("error");
       setError(
@@ -188,8 +196,10 @@ export function ContactForm() {
       </div>
 
       <div className="rounded-lg border border-border bg-surface-raised p-4 text-sm text-ink-secondary leading-relaxed">
-        Your message goes straight to my inbox. Your email address is only used
-        to reply — nothing is stored on this site.
+        Your message is sent through Resend to my email inbox. This portfolio
+        does not save submissions in its own database. Email providers may
+        process and retain messages under their own policies; your address is
+        used only as the reply-to.
       </div>
 
       <Button

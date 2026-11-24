@@ -11,11 +11,13 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const colorClasses: Record<string, string> = {
+  // Cobalt is dark enough for white text; the lighter brand colors use ink
+  // so normal-size labels clear WCAG AA contrast.
   cobalt: "bg-cobalt text-white border border-cobalt/30 hover:bg-cobalt/90 focus-visible:ring-cobalt active:scale-[0.98]",
-  coral: "bg-coral text-white border border-coral/30 hover:bg-coral/90 focus-visible:ring-coral active:scale-[0.98]",
-  tangerine: "bg-tangerine text-white border border-tangerine/30 hover:bg-tangerine/90 focus-visible:ring-tangerine active:scale-[0.98]",
-  lavender: "bg-lavender text-white border border-lavender/30 hover:bg-lavender/90 focus-visible:ring-lavender active:scale-[0.98]",
-  emerald: "bg-emerald text-white border border-emerald/30 hover:bg-emerald/90 focus-visible:ring-emerald active:scale-[0.98]",
+  coral: "bg-coral text-ink border border-coral/30 hover:bg-coral/90 focus-visible:ring-coral active:scale-[0.98]",
+  tangerine: "bg-tangerine text-ink border border-tangerine/30 hover:bg-tangerine/90 focus-visible:ring-tangerine active:scale-[0.98]",
+  lavender: "bg-lavender text-ink border border-lavender/30 hover:bg-lavender/90 focus-visible:ring-lavender active:scale-[0.98]",
+  emerald: "bg-emerald text-ink border border-emerald/30 hover:bg-emerald/90 focus-visible:ring-emerald active:scale-[0.98]",
 };
 
 export function Button({

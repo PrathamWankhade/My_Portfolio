@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import { Cormorant_Garamond } from "next/font/google";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { siteUrl } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
   },
   description:
     "Information Technology graduate. AI/ML, software engineering, and distributed systems — mesh messaging, computer vision, security, and offline-first work, documented with architecture, trade-offs, and limits.",
-  metadataBase: new URL("https://prathamwankhades-portfolio.vercel.app"),
+  metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
   },
@@ -80,8 +81,14 @@ export default function RootLayout({
         <noscript>
           <style>{`.reveal{opacity:1!important;transform:none!important}`}</style>
         </noscript>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-surface focus:px-4 focus:py-2 focus:text-ink focus:shadow-card"
+        >
+          Skip to content
+        </a>
         <Navigation />
-        <main className="flex-1">{children}</main>
+        <main id="main-content" className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

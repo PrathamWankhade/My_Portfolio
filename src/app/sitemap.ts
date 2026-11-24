@@ -1,7 +1,6 @@
 import { MetadataRoute } from "next";
 import { projects } from "@/content/projects";
-
-const base = "https://prathamwankhades-portfolio.vercel.app";
+import { siteUrl } from "@/lib/site";
 
 /**
  * No `lastModified` is emitted: there is no tracked content-update timestamp,
@@ -19,13 +18,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/contact",
     "/cv",
   ].map((route) => ({
-    url: `${base}${route}`,
+    url: `${siteUrl}${route}`,
     changeFrequency: "monthly" as const,
     priority: route === "" ? 1 : 0.8,
   }));
 
   const projectRoutes = projects.map((project) => ({
-    url: `${base}/projects/${project.slug}`,
+    url: `${siteUrl}/projects/${project.slug}`,
     changeFrequency: "monthly" as const,
     priority: 0.7,
   }));

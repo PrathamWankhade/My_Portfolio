@@ -71,8 +71,9 @@ export default function ContactPageClient() {
           </h1>
           <p className="rise rise-3 text-lg text-ink-secondary leading-relaxed max-w-lg mx-auto">
             Recruiting, collaboration, or a question about any of the projects —
-            write here and it lands in my inbox. Your email is used only to
-            reply; nothing is stored on this site.
+            write here and it lands in my inbox. Submissions go through Resend
+            and are not stored in this site&apos;s database; your email is used
+            only to reply.
           </p>
         </div>
       </section>

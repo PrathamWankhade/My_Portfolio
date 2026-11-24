@@ -84,7 +84,7 @@ function ProjectCard({ project }: { project: Project }) {
       href={`/projects/${project.slug}`}
       className="group block h-full"
     >
-      <Card variant="bordered" className="hover:-translate-y-4 hover:border-cobalt hover:shadow-card overflow-hidden flex flex-col h-full">
+      <Card variant="bordered" className="hover:-translate-y-1 hover:border-cobalt hover:shadow-card focus-within:border-cobalt focus-within:shadow-card overflow-hidden flex flex-col h-full">
         <div className="relative h-48 shrink-0 overflow-hidden">
           <ProjectIllustration project={project} className="h-full w-full transition-transform duration-700 group-hover:scale-105" />
         </div>

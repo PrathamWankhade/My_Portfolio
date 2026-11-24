@@ -1,59 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Pratham Wankhade — Portfolio
 
-## Getting Started
+A personal portfolio and two-page CV built with Next.js 16 (App Router), React
+19, TypeScript, and Tailwind CSS 4. Deployed at
+<https://prathamwankhades-portfolio.vercel.app>.
 
-First, run the development server:
+The site presents four engineering case studies with their architecture,
+trade-offs, and evaluation evidence. It keeps different kinds of evidence
+distinct: paper-reported results, repository-reported results, simulated
+experiments, and device-level verification are never presented as the same
+thing.
 
-```bash
+## Routes
+
+| Route | Purpose |
+| --- | --- |
+| `/` | Homepage — introduction, featured work, capabilities, contact |
+| `/about` | Background and engineering approach |
+| `/projects` | Filterable case-study gallery |
+| `/projects/[slug]` | Individual case study (architecture, implementation, evidence) |
+| `/skills` | Skill groups linked to the projects that demonstrate them |
+| `/experience` | Internships, leadership, education, talks |
+| `/achievements` | Publication, certifications, awards, presentations |
+| `/cv` | Print-ready two-page CV (Save as PDF) |
+| `/contact` | Contact form and direct channels |
+| `/robots.txt`, `/sitemap.xml` | Crawler metadata |
+
+Permanent redirects preserve old URLs: `/resume` → `/cv` and
+`/projects/phishing-detection` → `/projects/phishguard`.
+
+Content lives in `src/content/` (`projects.ts`, `experience.ts`,
+`publications.ts`, `about.ts`); shared UI lives in `src/components/`.
+
+## Local development
+
+Requires Node.js 22+ on Windows 11 (or any modern OS).
+
+```powershell
+npm ci
+Copy-Item .env.example .env.local   # then fill in the values you need
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>. The dev server reflects edits automatically.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Quality checks (the same ones CI runs on push and pull request):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Contact form
-
-`/contact` posts to `src/app/api/contact/route.ts`, which relays the message
-through [Resend](https://resend.com). Copy `.env.example` to `.env.local` and
-fill in the values:
-
-```bash
-cp .env.example .env.local
+```powershell
+npm run lint
+npx tsc --noEmit
+npm run build
 ```
+
+To test the production build locally, run `npm run start` after the build.
+
+## Environment variables
+
+Copy `.env.example` to `.env.local` (git ignores `.env*` except the example).
+On Vercel, add the same values under **Project → Settings → Environment
+Variables**, then redeploy.
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `RESEND_API_KEY` | yes | API key from <https://resend.com/api-keys>. Without it the endpoint returns 503 and the form shows the direct email address instead. |
-| `CONTACT_TO_EMAIL` | no | Inbox that receives submissions. Defaults to `prathamwankhade2004@gmail.com`. |
-| `CONTACT_FROM_EMAIL` | no | Sender. Defaults to `Portfolio Contact <onboarding@resend.dev>`, which Resend only allows to mail the account owner. Verify a domain in Resend to send from your own address. |
+| `SITE_URL` | no | Canonical URL used by `metadataBase`, `robots.txt` and `sitemap.xml`. Defaults to the Vercel URL above. |
+| `RESEND_API_KEY` | yes, for the form | API key from <https://resend.com/api-keys>. Without it the endpoint returns 503 and the form offers a direct email link. |
+| `CONTACT_TO_EMAIL` | no | Inbox receiving submissions; defaults to `prathamwankhade2004@gmail.com`. |
+| `CONTACT_FROM_EMAIL` | no | Sender; defaults to `Portfolio Contact <onboarding@resend.dev>`. Resend allows the test sender only to mail the account owner — verify a domain to send from your own address. |
+| `UPSTASH_REDIS_REST_URL` | no | If set with the token below, enables shared rate limiting across serverless instances. |
+| `UPSTASH_REDIS_REST_TOKEN` | no | Upstash Redis REST token; unset → per-instance in-memory limiter. |
 
-The visitor's address is set as `reply_to`, so replying in Gmail answers them
-directly. The route also validates and length-limits every field, drops
-honeypot submissions, and rate-limits to 5 messages per 10 minutes per IP.
+## Contact form
 
-On Vercel, add the same variables under **Project → Settings → Environment
-Variables** and redeploy.
+`/contact` posts JSON to `src/app/api/contact/route.ts`, which validates and
+length-limits every field, drops honeypot submissions, rate-limits to 5
+messages per 10 minutes, and relays via [Resend](https://resend.com). The
+visitor's address is used as `reply_to`, so replying in the inbox answers them
+directly. Repeated sends from the shared test sender can be filtered as spam
+by the recipient's mail provider; verify a domain in Resend for reliable
+delivery.
 
-## Learn More
+**Privacy:** the portfolio does not store submissions in its own database. The
+message is processed by Resend and the recipient's email provider, which retain
+it according to their own policies. The visitor's email is used only as the
+reply-to address.
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Vercel builds with `npm run build` (framework auto-detected as Next.js). After
+each push to `main`:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Confirm the deploy succeeds at <https://vercel.com/prathamwankhades-projects/portfolio>.
+2. Check `/cv` prints to exactly two A4 pages with clickable links.
+3. Submit a test message from `/contact` and confirm delivery.
+4. Check `/robots.txt`, `/sitemap.xml`, and social previews.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`.github/workflows/ci.yml` runs lint, TypeScript, and build on every push and
+pull request to `main`.

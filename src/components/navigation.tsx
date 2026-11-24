@@ -21,22 +21,60 @@ export function Navigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const previousOverflow = useRef<string | null>(null);
+  // Route changes dismiss the menu. Adjusting state during render (guarded by
+  // the previous pathname) avoids a cascading setState inside an effect.
+  const [lastPathname, setLastPathname] = useState(pathname);
+  if (lastPathname !== pathname) {
+    setLastPathname(pathname);
+    setOpen(false);
+  }
 
-  const close = useCallback(() => setOpen(false), []);
+  const close = useCallback(() => {
+    setOpen(false);
+    triggerRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     if (!open) return;
+
+    previousOverflow.current = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const focusable = () =>
+      menuRef.current
+        ? [
+            ...menuRef.current.querySelectorAll<HTMLElement>(
+              'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            ),
+          ]
+        : [];
+    focusable()[0]?.focus();
+
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") {
         close();
-        triggerRef.current?.focus();
+        return;
+      }
+      if (e.key !== "Tab") return;
+      const items = focusable();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
     }
+
     document.addEventListener("keydown", onKey);
-    document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow.current ?? "";
     };
   }, [open, close]);
 
@@ -108,6 +146,10 @@ export function Navigation() {
           <div className="absolute inset-0 bg-black/25" />
           <div
             id="mobile-nav"
+            ref={menuRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
             className="absolute inset-y-0 right-0 w-full sm:w-96 md:w-[24rem] bg-surface border-l border-border shadow-2xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
@@ -127,6 +169,7 @@ export function Navigation() {
                   key={item.href}
                   href={item.href}
                   onClick={close}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   className={`block px-4 py-3 text-lg font-medium rounded-lg transition-colors ${
                     isActive(item.href)
                       ? "bg-cobalt-soft text-cobalt"
