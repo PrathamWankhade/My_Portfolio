@@ -4,6 +4,10 @@ const nextConfig: NextConfig = {
   /* config options here */
   cacheComponents: true,
   partialPrefetching: true,
+  experimental: {
+    // Records that this dependency bump was made for a published advisory.
+    agentUpgrade: "security",
+  },
   async redirects() {
     return [
       // The résumé page was rebuilt as a detailed CV.
