@@ -27,10 +27,6 @@ export function ProjectCardVisual({
     );
   }
   return (
-    <ProjectIllustration
-      project={project}
-      fit="slice"
-      className={className}
-    />
+    <ProjectIllustration project={project} className={className} />
   );
 }

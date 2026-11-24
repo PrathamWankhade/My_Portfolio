@@ -153,11 +153,10 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
             {/* Visual explanation up top — understand it without reading paragraphs */}
             <figure className="mt-9">
               <div className="rounded-xl border border-border overflow-hidden shadow-card">
-                <ProjectIllustration project={project} className="aspect-[420/260] w-full" />
+                <ProjectIllustration project={project} className="aspect-[480/200] w-full" />
               </div>
-              <figcaption className="mt-3 text-xs font-mono text-muted leading-relaxed">
-                {project.name} — architecture overview, drawn from the documented
-                system. A diagram, not a screenshot.
+              <figcaption className="mt-3 text-xs text-muted leading-relaxed">
+                {project.name} — architecture overview, drawn from the documented system.
               </figcaption>
             </figure>
           </Reveal>
