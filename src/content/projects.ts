@@ -68,6 +68,7 @@ export const projects: Project[] = [
     ],
     status: "Active development",
     repo: "https://github.com/PrathamWankhade/OneBit",
+    image: "/projects/onebit-app.png",
     featured: true,
     metrics: [
       {
@@ -138,6 +139,7 @@ export const projects: Project[] = [
     ],
     status: "Completed",
     repo: "https://github.com/PrathamWankhade/FaceSnap",
+    image: "/projects/facesnap-home.jpg",
     featured: true,
     publication: {
       label: "Springer chapter, ICAIA 2025, pp. 287–302",
@@ -204,6 +206,7 @@ export const projects: Project[] = [
     stack: ["Python", "TensorFlow", "FedAvg", "Flask", "Next.js", "Docker"],
     status: "Research prototype",
     repo: "https://github.com/PrathamWankhade/AIPFL-IDS",
+    image: "/projects/aipfl-home.png",
     featured: true,
     metrics: [
       {
@@ -274,6 +277,7 @@ export const projects: Project[] = [
     ],
     status: "Completed",
     repo: "https://github.com/PrathamWankhade/PhishGuard",
+    image: "/projects/phishguard-home.png",
     featured: true,
     metrics: [
       {
@@ -326,3 +330,4 @@ export function getProject(slug: string): Project | undefined {
 export function getFeaturedProjects(): Project[] {
   return projects.filter((p) => p.featured);
 }
+
