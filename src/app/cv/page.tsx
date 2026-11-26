@@ -73,7 +73,7 @@ export default function CvPage() {
     "multi-agent-enterprise-assistant",
     "phishguard",
     "faceSnap",
-    "aipfl-ids",
+    "outpost",
     "onebit",
   ];
   const rank = (slug: string) => {

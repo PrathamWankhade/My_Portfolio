@@ -222,8 +222,8 @@ function FaceSnapDiagram({ hex }: { hex: string }) {
   );
 }
 
-/* AIPFL-IDS — simulated federation: clients → FedAvg → shared model */
-function AipflDiagram({ hex }: { hex: string }) {
+/* Outpost — simulated federation: clients → FedAvg → shared model */
+function OutpostDiagram({ hex }: { hex: string }) {
   const client = (x: number, name: string) => (
     <Box key={name} x={x} y={16} w={106} h={40} title={name} sub="local traffic" hex={hex} />
   );
@@ -274,7 +274,7 @@ function PhishingDiagram({ hex }: { hex: string }) {
 const DIAGRAMS: Record<string, (p: { hex: string }) => React.ReactNode> = {
   onebit: OneBitDiagram,
   faceSnap: FaceSnapDiagram,
-  "aipfl-ids": AipflDiagram,
+  outpost: OutpostDiagram,
   phishguard: PhishingDiagram,
 };
 

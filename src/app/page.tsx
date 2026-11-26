@@ -46,7 +46,7 @@ const domains = [
   {
     icon: ShieldCheck,
     title: "Security & privacy",
-    sub: "AIPFL-IDS · Phishing detection",
+    sub: "Outpost · Phishing detection",
     color: "#10b981",
     soft: "#dcfce7",
     href: "/projects",

@@ -56,7 +56,7 @@ export const experience: ExperienceEntry[] = [
     description:
       "Elected class representative and project team lead — the liaison between faculty and 75+ students.",
     highlights: [
-      "Led technical teams across 4 projects — FaceSnap (published, Springer), AIPFL-IDS, PhishGuard, and OneBit",
+      "Led technical teams across 4 projects — FaceSnap (published, Springer), Outpost, PhishGuard, and OneBit",
       "Organized workshops and peer initiatives on campus",
     ],
   },
@@ -108,31 +108,31 @@ export const skillGroups: SkillGroup[] = [
     name: "Programming",
     skills: ["Python", "TypeScript", "JavaScript", "Dart", "SQL", "C++", "Bash"],
     level: "proficient",
-    usedIn: ["onebit", "faceSnap", "aipfl-ids", "phishguard"],
+    usedIn: ["onebit", "faceSnap", "outpost", "phishguard"],
   },
   {
     name: "Machine learning",
     skills: ["TensorFlow", "scikit-learn", "FedAvg"],
     level: "proficient",
-    usedIn: ["aipfl-ids", "phishguard"],
+    usedIn: ["outpost", "phishguard"],
   },
   {
     name: "AI & NLP",
     skills: ["NLP", "spaCy", "OpenCV", "InsightFace", "Computer Vision"],
     level: "proficient",
-    usedIn: ["faceSnap", "aipfl-ids", "phishguard"],
+    usedIn: ["faceSnap", "outpost", "phishguard"],
   },
   {
     name: "Backend & APIs",
     skills: ["FastAPI", "Flask", "Node.js"],
     level: "proficient",
-    usedIn: ["faceSnap", "phishguard", "aipfl-ids"],
+    usedIn: ["faceSnap", "phishguard", "outpost"],
   },
   {
     name: "Frontend",
     skills: ["React", "Next.js", "Tailwind CSS", "TypeScript"],
     level: "proficient",
-    usedIn: ["faceSnap", "phishguard", "aipfl-ids"],
+    usedIn: ["faceSnap", "phishguard", "outpost"],
   },
   {
     name: "Mobile",
@@ -150,7 +150,7 @@ export const skillGroups: SkillGroup[] = [
     name: "Cloud & DevOps",
     skills: ["Docker", "Linux", "Git", "AWS"],
     level: "working",
-    usedIn: ["aipfl-ids", "phishguard"],
+    usedIn: ["outpost", "phishguard"],
   },
 ];
 
@@ -222,7 +222,7 @@ export const talks: Talk[] = [
     event: "Campus Tech Symposium",
     date: "2025",
     description:
-      "Presented research on AIPFL-IDS — federated learning applied to network intrusion detection.",
+      "Presented research on Outpost — federated learning applied to network intrusion detection.",
   },
 ];
 

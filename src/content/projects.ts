@@ -186,8 +186,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "aipfl-ids",
-    name: "AIPFL-IDS",
+    slug: "outpost",
+    name: "Outpost",
     tagline: "Simulated federated learning for IoT intrusion detection",
     color: "emerald",
     tags: ["AI/ML", "Cybersecurity"],
@@ -203,7 +203,7 @@ export const projects: Project[] = [
     ],
     stack: ["Python", "TensorFlow", "FedAvg", "Flask", "Next.js", "Docker"],
     status: "Research prototype",
-    repo: "https://github.com/PrathamWankhade/AIPFL-IDS",
+    repo: "https://github.com/PrathamWankhade/Outpost",
     featured: true,
     metrics: [
       {

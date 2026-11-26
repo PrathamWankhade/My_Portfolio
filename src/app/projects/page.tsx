@@ -3,7 +3,7 @@ import { ProjectsGallery } from "@/components/projects-gallery";
 
 export const metadata = {
   title: "Projects",
-  description: "A gallery of original projects — OneBit, FaceSnap, AIPFL-IDS, and phishing detection.",
+  description: "A gallery of original projects — OneBit, FaceSnap, Outpost, and phishing detection.",
 };
 
 export default function ProjectsPage() {
