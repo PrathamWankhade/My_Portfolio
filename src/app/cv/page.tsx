@@ -70,7 +70,7 @@ export default function CvPage() {
   // CV-only order: lead with the strongest applied-ML evidence. The site
   // keeps its own narrative order; this is a presentation choice.
   const cvProjectOrder = [
-    "multi-agent-enterprise-assistant",
+    "hive",
     "phishguard",
     "faceSnap",
     "outpost",

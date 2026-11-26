@@ -318,8 +318,8 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "multi-agent-enterprise-assistant",
-    name: "Multi-Agent Enterprise Assistant",
+    slug: "hive",
+    name: "Hive",
     tagline:
       "Enterprise knowledge RAG + ITSM service desk with six agents and human-in-the-loop approval",
     color: "lavender",
@@ -346,7 +346,7 @@ export const projects: Project[] = [
       "Docker",
     ],
     status: "Completed",
-    repo: "https://github.com/PrathamWankhade/Multi-agent-Enterprise-Assistant",
+    repo: "https://github.com/PrathamWankhade/Hive",
     featured: true,
     metrics: [
       {
