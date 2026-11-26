@@ -153,11 +153,10 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
             {/* Visual explanation up top — understand it without reading paragraphs */}
             <figure className="mt-9">
               <div className="rounded-xl border border-border overflow-hidden shadow-card">
-                <ProjectIllustration project={project} className="aspect-[420/260] w-full" />
+                <ProjectIllustration project={project} className="aspect-[480/200] w-full" />
               </div>
-              <figcaption className="mt-3 text-xs font-mono text-muted leading-relaxed">
-                {project.name} — architecture overview, drawn from the documented
-                system. A diagram, not a screenshot.
+              <figcaption className="mt-3 text-xs text-muted leading-relaxed">
+                {project.name} — architecture overview, drawn from the documented system.
               </figcaption>
             </figure>
           </Reveal>
@@ -234,7 +233,7 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
         </div>
       </section>
 
-      <section className="py-12 sm:py-16">
+      <section className="pt-12 pb-9 sm:pt-16 sm:pb-11">
         <div className="mx-auto max-w-4xl px-6 space-y-10">
           <Reveal>
             <h2 className="editor-text text-xs font-semibold tracking-widest text-cobalt uppercase mb-4 block">
@@ -292,7 +291,7 @@ async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
         </div>
       </section>
 
-      <section className="pt-14 pb-20 sm:pt-16 sm:pb-24 border-t border-border/50">
+      <section className="pt-9 pb-20 sm:pt-11 sm:pb-24 border-t border-border/50">
         <div className="mx-auto max-w-4xl px-6 flex flex-wrap items-center justify-between gap-4">
           <Button asChild variant="outline">
             <Link href="/projects">← Back to projects</Link>

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { type Project } from "@/content/projects";
 import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Chip } from "@/components/ui/chip";
-import { ProjectIllustration } from "@/components/project-illustration";
+import { ProjectCardVisual } from "@/components/project-card-visual";
 
 /** Stable, editorial ordering for the category filters. */
 const TAG_ORDER = ["Offline & mobile", "Computer vision", "AI/ML", "Cybersecurity"];
@@ -85,23 +85,23 @@ function ProjectCard({ project }: { project: Project }) {
       className="group block h-full"
     >
       <Card variant="bordered" className="hover:-translate-y-1 hover:border-cobalt hover:shadow-card focus-within:border-cobalt focus-within:shadow-card overflow-hidden flex flex-col h-full">
-        <div className="relative h-48 shrink-0 overflow-hidden">
-          <ProjectIllustration project={project} className="h-full w-full transition-transform duration-700 group-hover:scale-105" />
+        <div className="relative h-44 shrink-0 overflow-hidden">
+          <ProjectCardVisual project={project} className="h-full w-full transition-transform duration-700 group-hover:scale-105" />
         </div>
-        <div className="p-5 flex-1 flex flex-col">
+        <div className="p-4 flex-1 flex flex-col">
           <div className="flex items-start justify-between gap-3 mb-2">
             <CardTitle className="mb-0">{project.name}</CardTitle>
             <Chip variant="outline" size="sm" className="shrink-0">
               {project.status}
             </Chip>
           </div>
-          <CardDescription className="mb-4 flex-1">{project.tagline}</CardDescription>
+          <CardDescription className="mb-3 flex-1">{project.tagline}</CardDescription>
           <div className="mt-auto flex flex-wrap gap-2">
             {project.stack.slice(0, 5).map((skill) => (
               <Chip key={skill} variant="outline" size="sm">{skill}</Chip>
             ))}
           </div>
-          <div className="mt-4 flex items-center gap-2 text-xs font-mono text-muted">
+          <div className="mt-3 flex items-center gap-2 text-xs font-mono text-muted">
             <span>{project.tags.join(" · ")}</span>
             <span aria-hidden="true">·</span>
             <span className="text-cobalt group-hover:text-cobalt/90">Case study →</span>

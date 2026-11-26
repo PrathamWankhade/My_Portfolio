@@ -326,3 +326,4 @@ export function getProject(slug: string): Project | undefined {
 export function getFeaturedProjects(): Project[] {
   return projects.filter((p) => p.featured);
 }
+

@@ -17,7 +17,7 @@ export const about = {
   github: "https://github.com/PrathamWankhade",
   linkedin: "https://linkedin.com/in/pratham-wankhade",
   bio:
-    "I build software systems where imagination meets intelligence. My work spans AI, computer vision, cybersecurity, and offline-first applications — each documented with architecture, trade-offs, and honest limits.",
+    "I'm an Information Technology graduate focused on AI/ML, software engineering, and distributed systems. I've built projects spanning NLP pipelines, computer vision, phishing detection, federated learning, and offline-first mobile applications. I care about practical implementation, clear architecture, and honest evaluation.",
   story:
     "I started building software because I wanted to make things that work when the network doesn't. That curiosity led to OneBit, a Bluetooth mesh messenger with no servers at all, and then to FaceSnap, where I learned that detection, recognition, and attendance must be separate stages — never confused. Along the way I interned at Align Infotech and AD Infocom Systems, working on NLP pipelines and recommendation chatbots. In 2026 I graduated from Tulsiramji Gaikwad-Patil College of Engineering & Technology, Nagpur, with a B.Tech in Information Technology — First Class with Distinction. Today I split my time between building systems and writing about them honestly.",
   philosophy:
