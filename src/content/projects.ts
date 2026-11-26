@@ -317,6 +317,74 @@ export const projects: Project[] = [
       "Docker compose runs frontend and API; pytest and CI cover the contract",
     ],
   },
+  {
+    slug: "multi-agent-enterprise-assistant",
+    name: "Multi-Agent Enterprise Assistant",
+    tagline:
+      "Enterprise knowledge RAG + ITSM service desk with six agents and human-in-the-loop approval",
+    color: "lavender",
+    tags: ["AI/ML", "Software engineering"],
+    description:
+      "An AI-powered enterprise knowledge and IT service management platform. Six specialized agents (Orchestrator, Research, Analyst, Execution, Review, Synthesis) retrieve company knowledge with citations, classify and route IT service requests, and execute write actions only after human approval. Local-first with Ollama, cloud-ready on Azure.",
+    problem:
+      "Enterprises need AI assistants that can answer from company knowledge and take service-desk actions without hallucinating or executing silently. Every claim must trace to a source, and every write — creating a ticket, assigning a technician — needs a human in the loop.",
+    objectives: [
+      "Answer company-knowledge questions with RAG and clickable source citations",
+      "Classify natural-language IT issues and create service requests pending approval",
+      "Route tickets to technicians with priority and SLA tracking",
+      "Pause every write action behind a human approval gate",
+      "Authenticate with JWT and enforce admin/user role-based access",
+    ],
+    stack: [
+      "Python",
+      "FastAPI",
+      "Ollama",
+      "Qdrant",
+      "Redis",
+      "Azure OpenAI",
+      "Azure AI Search",
+      "Docker",
+    ],
+    status: "Completed",
+    repo: "https://github.com/PrathamWankhade/Multi-agent-Enterprise-Assistant",
+    featured: true,
+    metrics: [
+      {
+        label: "Agents",
+        value: "6 specialized",
+        condition:
+          "Orchestrator, Research, Analyst, Execution, Review, Synthesis — each with a distinct responsibility (repo-documented)",
+      },
+      {
+        label: "Test suite",
+        value: "62 passing",
+        condition:
+          "offline, no Azure/Ollama/Qdrant/Redis required (repo README)",
+      },
+    ],
+    challenges: [
+      "Keeping every RAG claim traceable to a clickable source excerpt",
+      "Preventing write actions from executing without human approval",
+      "Gracefully degrading when LLM, embedding, vector DB, or cache are unavailable",
+      "Enforcing RBAC so users see only their own tickets and admins see all",
+    ],
+    architecture:
+      "FastAPI gateway handles auth, validation, and routing; an Orchestrator plans and delegates to six agents. Research retrieves from Qdrant/Azure AI Search with keyword fallback; Execution calls allow-listed tools behind a human approval gate; Review verifies grounding before Synthesis returns the answer. Redis backs sessions and task context with in-process fallback.",
+    implementation:
+      "Python/FastAPI backend with a single-page frontend UI. JWT auth with user/admin roles; Qdrant vector store with Azure AI Search option; Redis with in-process fallback; Ollama for local LLMs with Azure OpenAI as cloud option; Docker Compose runs Qdrant and Redis.",
+    resumeLine:
+      "Multi-agent enterprise assistant (Python/FastAPI): six-agent RAG + ITSM service desk with human-in-the-loop approval",
+    cvHighlights: [
+      "Six specialized agents (Orchestrator, Research, Analyst, Execution, Review, Synthesis) plan, retrieve, execute, review, and synthesize answers with clickable source citations",
+      "ITSM service desk: natural-language issue classification → pending approval → technician assignment → SLA-tracked resolution, with full audit trail",
+      "Write actions pause behind a human approval gate; JWT auth + admin/user RBAC; degrades to mock mode when LLM, vector DB, or cache are unavailable",
+    ],
+    outcomes: [
+      "Company-knowledge questions answered with RAG and traceable source citations",
+      "IT service requests classified, approved, and assigned through a human-governed workflow",
+      "Every write action requires explicit human approval before execution",
+    ],
+  },
 ];
 
 export function getProject(slug: string): Project | undefined {

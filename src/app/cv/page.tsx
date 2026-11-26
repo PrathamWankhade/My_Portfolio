@@ -69,7 +69,13 @@ export default function CvPage() {
 
   // CV-only order: lead with the strongest applied-ML evidence. The site
   // keeps its own narrative order; this is a presentation choice.
-  const cvProjectOrder = ["phishguard", "faceSnap", "aipfl-ids", "onebit"];
+  const cvProjectOrder = [
+    "multi-agent-enterprise-assistant",
+    "phishguard",
+    "faceSnap",
+    "aipfl-ids",
+    "onebit",
+  ];
   const rank = (slug: string) => {
     const i = cvProjectOrder.indexOf(slug);
     return i === -1 ? cvProjectOrder.length : i;
